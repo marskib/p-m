@@ -365,6 +365,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
     //sprawdzenie githuba.....
+    //sprawdzam raz jeszcze
 
 
 }

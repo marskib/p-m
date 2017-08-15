@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:scrollbars="vertical"
+    android:fadeScrollbars="false"
+    android:scrollbarSize="20dp"
+
+    tools:context="autyzmsoft.pl.profmarcin.SplashKlasa">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_PoziomOpis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:textStyle="bold"
+            android:text="Poziom trudności (1-6):  " />
+
+        <Button
+            android:id="@+id/btn_Minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/tv_PoziomOpis"
+            android:layout_toEndOf="@+id/tv_PoziomOpis"
+            android:text="   -   "
+            android:textSize="@dimen/tvPoziom_size"
+            android:layout_marginTop="@dimen/text_margin"
+            android:onClick="btn_Poziom_Click"/>
+
+        <TextView
+            android:id="@+id/tv_Poziom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:layout_toEndOf="@+id/btn_Minus"
+            android:layout_alignBaseline="@+id/tv_PoziomOpis"
+            android:textStyle="bold"
+            android:textSize="@dimen/tvPoziom_size"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginLeft= "@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            />
+
+        <Button
+            android:id="@+id/btn_Plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/tv_Poziom"
+            android:layout_toEndOf="@+id/tv_Poziom"
+            android:text="   +   "
+            android:layout_marginTop="@dimen/text_margin"
+            android:textSize="@dimen/tvPoziom_size"
+            android:onClick="btn_Poziom_Click"/>
+
+        <CheckBox
+            android:id="@+id/cb_RoznicujKlawisze"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tvPoziom_size"
+            android:layout_marginLeft="@dimen/text_margin"
+
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:textStyle="bold"
+            android:layout_below="@+id/tv_PoziomOpis"
+            android:text=" Wszystkie klawisze różne" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/cb_RoznicujKlawisze"
+            android:layout_alignBaseline="@+id/cb_RoznicujKlawisze"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:text=" (o ile możliwe)"/>
+
+        <CheckBox
+            android:id="@+id/cb_RoznicujObrazki"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:textStyle="bold"
+            android:layout_below="@+id/cb_RoznicujKlawisze"
+            android:text=" Za każdym razem staraj się pokazać inny obrazek" />
+
+
+         <CheckBox
+            android:id="@+id/cb_Trening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:textStyle="bold"
+            android:layout_below="@id/cb_RoznicujObrazki"
+            android:text=" tryb Treningowy" />
+
+
+
+        <RadioGroup
+            android:id="@+id/rg_ObrazekDzwiek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_below="@id/cb_Trening"
+            android:layout_alignStart="@+id/cb_RoznicujObrazki"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_noPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="bez Obrazków"
+                android:textStyle="bold"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+            <RadioButton
+                android:id="@+id/rb_noSound"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="bez Dźwięku"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+            <RadioButton
+                android:id="@+id/rb_SoundPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Obrazki i Dźwięk"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+                android:checked="true"/>
+         </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/l_FileChoser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/rg_ObrazekDzwiek"
+            android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:layout_marginRight="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:background="@drawable/border_skib"
+            android:padding="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+                android:text="Źródło obrazków i nagrań:"/>
+
+
+            <RadioGroup
+                android:id="@+id/rg_zrodlo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_zAssets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="zasoby aplikacji   "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+                <RadioButton
+                    android:id="@+id/rb_zKatalogu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:checked="false"
+                    android:textStyle="bold"
+                    android:text="mój katalog"
+                    android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_gravity="center_horizontal"
+                android:text="Wybrany katalog: "/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/tvPoziom_size"
+            android:layout_below="@+id/l_FileChoser"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/bInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:text="INFO"
+                android:onClick="bInfoClick"
+                />
+
+            <Button
+                android:id="@+id/bStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="START"
+                android:layout_weight="3"
+                android:drawableLeft="@drawable/tick"
+                android:onClick="bStartClick"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+</android.support.v4.widget.NestedScrollView>

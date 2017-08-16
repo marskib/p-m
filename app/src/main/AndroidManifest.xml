@@ -30,10 +30,10 @@
         </activity>
 
         <activity
-            android:name=".ModalDialog"
+            android:name=".DialogModalny"
             android:theme="@android:style/Theme.Dialog">
         <intent-filter>
-            <action android:name="autyzmsoft.pl.profmarcin.ModalDialog" />  <!-- it gives the activity the dialog look...-->
+            <action android:name="autyzmsoft.pl.profmarcin.DialogModalny" />  <!-- it gives the activity the dialog look...-->
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
 

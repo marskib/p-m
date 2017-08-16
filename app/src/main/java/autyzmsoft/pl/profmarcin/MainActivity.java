@@ -1,8 +1,6 @@
 package autyzmsoft.pl.profmarcin;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -93,7 +91,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         mRozdzielacz = new Rozdzielacz(listaObrazkowAssets.length, lBts);
 
-        Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
 
         //Okienko modalne z informacjami o aplikacji:
         pokazModal();
@@ -336,10 +334,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
     private boolean pokazModal() {
-        intModalDialog = new Intent("autyzmsoft.pl.profmarcin.ModalDialog");
+    //Pokazanie modalnego okienka.
+    //Okienko realizowane jest jako Activity  o nazwie DialogModalny
+
+        intModalDialog = new Intent("autyzmsoft.pl.profmarcin.DialogModalny");
         startActivity(intModalDialog);
         return true;
-    }
+    }  //koniec Metody()
 
 
     @Override

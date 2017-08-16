@@ -14,19 +14,32 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplashKlasa"
+            android:label="@string/title_activity_scrolling"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="autyzmsoft.pl.profmarcin.SplashKlasa" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".SplashKlasa"
-            android:screenOrientation="landscape"
-            android:label="@string/title_activity_scrolling">
-            <intent-filter>
-                <action android:name="autyzmsoft.pl.profmarcin.SplashKlasa"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            android:name=".ModalDialog"
+            android:theme="@android:style/Theme.Dialog">
+        <intent-filter>
+            <action android:name="autyzmsoft.pl.profmarcin.ModalDialog" />  <!-- it gives the activity the dialog look...-->
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+
         </activity>
+
+
     </application>
 
 </manifest>

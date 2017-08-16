@@ -54,6 +54,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     Intent splashKlasa;     //Na przywolanie ekranu z ustawieniami
 
+    Intent intModalDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -92,7 +95,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
 
-        informacjaUstawienia("ala ma kota");
+        //Okienko modalne z informacjami o aplikacji:
+        pokazModal();
 
         /* 2017.08.-09 - ski ski - porzejscie na onResume:
         mRozdzielacz.ustaw(lBts,true,true,false);
@@ -331,6 +335,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     } //koniec Metody()
 
 
+    private boolean pokazModal() {
+        intModalDialog = new Intent("autyzmsoft.pl.profmarcin.ModalDialog");
+        startActivity(intModalDialog);
+        return true;
+    }
+
+
     @Override
     protected void onResume() {
     /* ************************************* */
@@ -365,21 +376,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     } //koniec Metody()
 
-    private void informacjaUstawienia(String tekscik) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.MyDialogTheme);
-        builder1.setMessage(tekscik);
-        builder1.setCancelable(true);
 
-        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-
-
-    }  //koniec Metody()
 
 }

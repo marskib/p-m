@@ -355,7 +355,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         bDalej.setVisibility(View.INVISIBLE);
         bAgain.setVisibility(View.INVISIBLE);
 
-        //jezeli bez obrazkow, to trzeba jakos 'uczu;ic' puste miejsce po obrazku, zeby mozna bylo wchodzic do Ustawien:
+        //Jezeli bez obrazkow, to trzeba jakos 'uczulić' puste miejsce po obrazku, zeby nadal mozna bylo wchodzic do Ustawien:
         if (ZmienneGlobalne.getInstance().BEZ_OBRAZKOW) {
             l_obrazek_i_reszta.setOnLongClickListener(this);
         } else {

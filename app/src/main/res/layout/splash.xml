@@ -46,8 +46,8 @@
             android:textStyle="bold"
             android:textSize="@dimen/tvPoziom_size"
             android:textColor="@android:color/holo_red_dark"
-            android:layout_marginLeft= "@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginLeft= "@dimen/maly_odstep"
+            android:layout_marginRight="@dimen/maly_odstep"
             />
 
         <Button

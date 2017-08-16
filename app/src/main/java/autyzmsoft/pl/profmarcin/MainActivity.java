@@ -1,6 +1,8 @@
 package autyzmsoft.pl.profmarcin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -50,8 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     ImageView imageView;    //obrazek
     LinearLayout l_obrazek_i_reszta;  //cale pole z lewej strony (bez klawiszy)
 
-
-    Intent splashKlasa;
+    Intent splashKlasa;     //Na przywolanie ekranu z ustawieniami
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +92,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
 
+        informacjaUstawienia("ala ma kota");
+
         /* 2017.08.-09 - ski ski - porzejscie na onResume:
         mRozdzielacz.ustaw(lBts,true,true,false);
         mRozdzielacz.dajZestaw(); //na klawiszach pojawia sie wyrazy(=nazwy obrazkow)
         setCurrentImage(); //wyswietlenie obrazka
        */
-
 
     } //koniec metody onCreate()
 
@@ -363,9 +365,21 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     } //koniec Metody()
 
+    private void informacjaUstawienia(String tekscik) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);// R.style.MyDialogTheme);
+        builder1.setMessage(tekscik);
+        builder1.setCancelable(true);
 
-    //sprawdzenie githuba.....
-    //sprawdzam raz jeszcze
+        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
 
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+
+    }  //koniec Metody()
 
 }

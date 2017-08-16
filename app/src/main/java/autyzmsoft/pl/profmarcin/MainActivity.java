@@ -366,7 +366,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     } //koniec Metody()
 
     private void informacjaUstawienia(String tekscik) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);// R.style.MyDialogTheme);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.MyDialogTheme);
         builder1.setMessage(tekscik);
         builder1.setCancelable(true);
 

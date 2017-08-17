@@ -6,7 +6,6 @@
 
     android:scrollbars="vertical"
     android:fadeScrollbars="false"
-    android:scrollbarSize="20dp"
 
     tools:context="autyzmsoft.pl.profmarcin.SplashKlasa">
 

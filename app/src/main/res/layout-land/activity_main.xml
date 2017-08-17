@@ -40,7 +40,6 @@
             android:layout_marginTop="-5dp"
             android:layout_above="@+id/lObrazek">
 
-
             <TextView
                 android:id="@+id/tvWyraz"
                 android:layout_width="wrap_content"

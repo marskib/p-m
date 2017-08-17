@@ -2,9 +2,11 @@ package autyzmsoft.pl.profmarcin;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -52,7 +54,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     Intent splashKlasa;     //Na przywolanie ekranu z ustawieniami
 
-    Intent intModalDialog;
+    Intent intModalDialog;  //Na okienko dialogu 'modalnego' orzy starcie aplikacji
+
+    static MediaPlayer mp = null;
 
 
     @Override
@@ -202,9 +206,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
      *****************************************************************************/
 
         String napisNaKl = (String) ((Button) view).getText();
-        if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to ...:
+        if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to :
             //1.Wyłaczmy wszystkie listenery (bo efekty uboczne jesli klikanie po 'zwyciestwie'),
             //2.Gasimy i deaktywujemy wszystkie inne, oprócz kliknietego (dobry efekt wizualny):
+            //3.Odgrywamy 'aplauz'
             for (int i = 0; i < lBts; i++) {
                 view.setOnClickListener(null);  //ad. 1
                 if (tButtons[i] != view) {      //ad. 2
@@ -226,8 +231,46 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     bAgain.setVisibility(View.VISIBLE);
                 }
             }, opozniacz1);
+            odegrajZAssets("nagrania/oklaski.ogg",5);
         } //if
+        else {
+            odegrajZAssets("nagrania/zle.ogg",0);
+        }
     } //koniec metody
+
+
+    public void odegrajZAssets(final String sciezka_do_pliku_parametr, int delay_milisek) {
+    /* ***************************************************************** */
+    // Odegranie dzwieku umieszczonego w Assets (w katalogu 'nagrania'):
+    /* ***************************************************************** */
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                try {
+                    if (mp != null) {
+                        mp.release();
+                        mp = new MediaPlayer();
+                    } else {
+                        mp = new MediaPlayer(); //wykona sie przy starcie aplikacji
+                    }
+                    final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
+                    AssetFileDescriptor descriptor = getAssets().openFd(sciezka_do_pliku);
+                    mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+                    descriptor.close();
+                    mp.prepare();
+                    mp.setVolume(1f, 1f);
+                    mp.setLooping(false);
+                    mp.start();
+                    //Toast.makeText(getApplicationContext(),"Odgrywam: "+sciezka_do_pliku,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    //Toast.makeText(getApplicationContext(), "Nie można odegrać pliku z dźwiękiem.", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+            }
+        }, delay_milisek);
+    } //koniec Metody()
+
 
 
     private void setCurrentImage() {

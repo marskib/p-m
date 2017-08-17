@@ -18,7 +18,7 @@ public class DialogModalny extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setFinishOnTouchOutside (false);  //to make it behave like a modal dialog
+        //setFinishOnTouchOutside (false);  //to make it behave like a modal dialog
 
         setContentView(R.layout.activity_dialog_modalny);
 
@@ -28,7 +28,7 @@ public class DialogModalny extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int szer = displaymetrics.widthPixels;
         View layoutSki = findViewById(R.id.sv_DialogModalny);
-        layoutSki.getLayoutParams().width = (int) (szer*0.70f);
+        layoutSki.getLayoutParams().width = (int) (szer*0.80f);
         layoutSki.requestLayout(); //teraz nastepuje zaaplikowanie zmian
 
     }

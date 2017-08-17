@@ -93,8 +93,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         //Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
 
-        //Okienko modalne z informacjami o aplikacji:
-        pokazModal();
+
+        pokazModal();   //Okienko modalne z informacjami o aplikacji:
 
         /* 2017.08.-09 - ski ski - porzejscie na onResume:
         mRozdzielacz.ustaw(lBts,true,true,false);

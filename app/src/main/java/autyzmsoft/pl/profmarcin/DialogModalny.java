@@ -23,7 +23,7 @@ public class DialogModalny extends Activity {
         setContentView(R.layout.activity_dialog_modalny);
 
 
-
+        //Ustawienie szerokosci okna DialogModalny:
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int szer = displaymetrics.widthPixels;

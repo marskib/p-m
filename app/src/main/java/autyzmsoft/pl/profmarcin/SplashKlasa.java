@@ -65,10 +65,12 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         rb_zAssets = (RadioButton) findViewById(R.id.rb_zAssets);
         isChecked  = !ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
         rb_zAssets.setChecked(isChecked);
+        rb_zAssets.setOnClickListener(this);
 
         rb_zKatalogu = (RadioButton) findViewById(R.id.rb_zKatalogu);
         isChecked    = ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
         rb_zKatalogu.setChecked(isChecked);
+        rb_zKatalogu.setOnClickListener(this);
 
         sciezka = (TextView) findViewById(R.id.tv_sciezkaKatalog);
 

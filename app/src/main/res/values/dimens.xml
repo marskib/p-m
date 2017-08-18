@@ -4,4 +4,5 @@
     <dimen name="maly_odstep">8dp</dimen>
 
     <dimen name="bOK_size">25sp</dimen>
+    <dimen name="ostrzegaj_demo_size">20sp</dimen>
 </resources>

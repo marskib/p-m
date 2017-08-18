@@ -1,3 +1,14 @@
 <resources>
     <string name="title_activity_file_chooser">Wybór Katalogu</string>
+    <string name="ostrzegaj_demo"><b>Informacja.</b>\n
+        Używasz aplikacji w wersji Demo.
+        \n\n
+W wersji Demo, w katalogu zewnętrznym (zasoby tworzone przez Użytkownika) może znajdować się maksymalnie <b>5</b> obrazków.
+        \n\n
+Jeżeli wskazany przez Ciebie katalog będzie zawierał więcej niż 5 obrazków, nie zostanie on użyty przez aplikację.
+        \n\n
+Pełna wersja może obsłużyć katalogi z dowolną liczbą obrazków.
+        \n\n
+Pełna wersja jest dostępna na stronie <b>AutyzmSoft.pl</b>
+    </string>
 </resources>

@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <string name="title_activity_file_chooser">Wybór Katalogu</string>
+</resources>

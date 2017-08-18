@@ -28,18 +28,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".DialogModalny"
-            android:theme="@android:style/Theme.Dialog">
-        <intent-filter>
-            <action android:name="autyzmsoft.pl.profmarcin.DialogModalny" />  <!-- it gives the activity the dialog look...-->
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            android:theme="@android:style/Theme.Dialog"> <!-- it gives the activity the dialog look... -->
+            <intent-filter>
+                <action android:name="autyzmsoft.pl.profmarcin.DialogModalny" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-
-
+        <activity
+            android:name=".FileChooserActivity"
+            android:label="@string/title_activity_file_chooser"></activity>
     </application>
 
 </manifest>

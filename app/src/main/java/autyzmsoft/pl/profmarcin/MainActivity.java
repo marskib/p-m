@@ -252,7 +252,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         mp.release();
                         mp = new MediaPlayer();
                     } else {
-                        mp = new MediaPlayer(); //wykona sie przy starcie aplikacji
+                        mp = new MediaPlayer();
                     }
                     final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
                     AssetFileDescriptor descriptor = getAssets().openFd(sciezka_do_pliku);

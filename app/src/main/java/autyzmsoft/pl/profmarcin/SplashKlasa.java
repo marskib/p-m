@@ -1,6 +1,8 @@
 package autyzmsoft.pl.profmarcin;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class SplashKlasa extends Activity {
+public class SplashKlasa extends Activity implements View.OnClickListener{
 
     TextView tv_Poziom;
     CheckBox cb_RoznicujKlawisze;
@@ -20,6 +22,9 @@ public class SplashKlasa extends Activity {
     CheckBox cb_Trening;
     RadioButton rb_NoPictures;
     RadioButton rb_NoSound;
+    RadioButton rb_zAssets;
+    RadioButton rb_zKatalogu;
+    TextView sciezka; //informacyjny teksci pokazujacy biezacy katalog (if any)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,16 @@ public class SplashKlasa extends Activity {
         rb_NoSound = (RadioButton) findViewById(R.id.rb_noSound);
         isChecked  = ZmienneGlobalne.getInstance().BEZ_DZWIEKU;
         rb_NoSound.setChecked(isChecked);
+
+        rb_zAssets = (RadioButton) findViewById(R.id.rb_zAssets);
+        isChecked  = !ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
+        rb_zAssets.setChecked(isChecked);
+
+        rb_zKatalogu = (RadioButton) findViewById(R.id.rb_zKatalogu);
+        isChecked    = ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
+        rb_zKatalogu.setChecked(isChecked);
+
+        sciezka = (TextView) findViewById(R.id.tv_sciezkaKatalog);
 
     }  //koniec Metody()
 
@@ -128,8 +143,49 @@ public class SplashKlasa extends Activity {
     public void bInfoClick(View v) {
         Toast.makeText(this, "Jeszcze nie zaimplementowane...", Toast.LENGTH_SHORT).show();
     }
-    
-    
+
+
+    public void onClick(View arg0) {
+    /* ********************************************************************************************** */
+    /* Obsluga klikniec na radio buttony 'Obrazki z zasobow aplikacji', 'Obrazki z wlasnego katalogu' */
+    /* ********************************************************************************************** */
+
+        if (arg0==rb_zAssets) {
+            sciezka.setText(""); //kosmetyka - znika z ekranu
+            //jesli kliknieto na "z zasobow aplikacji", to przełączam się na to nowe źródło:
+            if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG==true) {
+                ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
+                ZmienneGlobalne.getInstance().ZMIENIONO_ZRODLO     = true;
+            }
+
+            //policzenie obrazkow w zasobach aplikacji (zeby uswiadomic usera...):
+            AssetManager mgr = getAssets();
+            try {
+                toast("Liczba obrazków: "+Integer.toString(mgr.list(MainActivity.katalog).length));
+            } catch (Exception io) {};
+
+            return;
+        }
+        if (arg0==rb_zKatalogu) {
+            /*Wywolanie activity do wyboru miedzy karta zewnetrzna SD, a pamiecia urzadzenia:*/
+
+            if (ZmienneGlobalne.getInstance().PELNA_WERSJA) {
+                Intent intent = new Intent(this, InternalExternalKlasa.class);
+                this.startActivity(intent);
+            }
+            //Wersja demo::
+            else {
+                Intent intent = new Intent(this, WersjaDemoOstrzez.class);
+                this.startActivity(intent); //w srodku zostanie wywolana InternalExternalKlasa
+            }
+
+            return;
+        }
+    } //koniec Metody()
+
+    private void toast(String napis) {
+        Toast.makeText(getApplicationContext(),napis,Toast.LENGTH_LONG).show();
+    }
 
 
 }

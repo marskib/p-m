@@ -1,7 +1,11 @@
 package autyzmsoft.pl.profmarcin;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -9,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +66,36 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     static MediaPlayer mp = null;
 
 
+
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    /* Wywolywana po udzieleniu/odmowie zezwolenia na dostęp do karty (od API 23 i wyzej) */
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)  {
+            case REQUEST_CODE_ASK_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //reload my activity with permission granted or use the features what required the permission
+                } else  {
+                    //toast("Nie udzieliłeś zezwolenia na odczyt. Opcja 'obrazki z mojego katalogu' nie będzie działać. Możesz zainstalować aplikacje ponownie lub zmienić zezwolenie w Menadżerze aplikacji.");
+                    wypiszOstrzezenie("Nie udzieliłeś zezwolenia na odczyt. Opcja 'obrazki z mojego katalogu' nie będzie działać. Możesz zainstalować aplikację ponownie lub zmienić zezwolenie w Menadżerze aplikacji.");
+                    Button rbKatalog = (RadioButton) findViewById(R.id.rb_zKatalogu);
+                    rbKatalog.setEnabled(false);
+                }
+            }
+        }
+    } //koniec Metody
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+       /* ZEZWOLENIA NA KARTE _ WERSJA na MARSHMALLOW, jezeli dziala na starszej wersji, to ten kod wykona sie jako dummy */
+        int jestZezwolenie = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (jestZezwolenie != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
+        }
+       /* KONIEC **************** ZEZWOLENIA NA KARTE _ WERSJA na MARSHMALLOW */
 
         //na caly ekran:
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -420,6 +455,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     } //koniec Metody()
 
+    private void wypiszOstrzezenie(String tekscik) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert);   //Theme.Dialog);    //R.style.MyDialogTheme);
+        builder1.setMessage(tekscik);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    } //koniec Metody()
 
 
 }

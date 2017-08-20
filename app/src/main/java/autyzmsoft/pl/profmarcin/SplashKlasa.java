@@ -72,8 +72,17 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         rb_zKatalogu.setChecked(isChecked);
         rb_zKatalogu.setOnClickListener(this);
 
+        //Wypisanie ewentualnej sciezki i liczby obrazkow:
         sciezka = (TextView) findViewById(R.id.tv_sciezkaKatalog);
-
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
+            int liczba = MainActivity.myObrazkiSD.size();
+            String strLiczba = Integer.toString(liczba);
+            sciezka.setText(ZmienneGlobalne.getInstance().WYBRANY_KATALOG+"   "+strLiczba+" szt.");
+        } else {
+            int liczba = MainActivity.listaObrazkowAssets.length;
+            String strLiczba = Integer.toString(liczba);
+            sciezka.setText(strLiczba+" szt.");
+        }
     }  //koniec Metody()
 
 
@@ -98,11 +107,11 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = false;
             ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = false;
         } else {
-            if (isCheckedNoPictures) {  //bez obrazkow (musimy zapewnic dzwiek no matter what...)
+            if (isCheckedNoPictures) {  //bez obrazkow (ale musimy zapewnic dzwiek no matter what...)
                 ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = true;
                 ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = false;
             }     else {
-                if (isCheckedNoSound) {  //bez dzwieku - musimy zapewnic obrazki no matter what..
+                if (isCheckedNoSound) {  //bez dzwieku (alemusimy zapewnic obrazki no matter what..)
                     ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = false;
                     ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = true;
                 } else { //na wszelki wypadek...

@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -50,8 +51,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     public static
       String listaObrazkowAssets[] = null;  //lista obrazkow z Assets/obrazki - dla werski demo )i nie tylko...)
 
-    private int currImage = 0;              //indeks na obrazek
-
     private int width, height;              //rozmiary urzadzenia
     private int btH;                        //na wysokosc buttona
     private float txSize;                   //na wysokosc tekstu na buttonie
@@ -72,6 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     File dirObrazkiNaSD;                           //katalog z obrazkami na SD (internal i external)
     public static ArrayList<File> myObrazkiSD;     //lista obrazkow w SD
 
+    boolean nieGraj;         //przelacznik(semafar) : grac/nie grac - jesli start apk. to ma nie grac slowa (bo glupio..)
 
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -120,6 +120,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         imageView = (ImageView) findViewById(R.id.imV);
         imageView.setOnLongClickListener(this);
+        imageView.setOnClickListener(new View.OnClickListener() {  //tutaj rozdzielam definicje, zeby nie komplikowac kodu na klikniecie klawisza
+            @Override
+            public void onClick(View view) {
+                odegrajWyraz(0);
+            }
+        });
 
         l_obrazek_i_reszta = (LinearLayout) findViewById(R.id.l_Obrazek_i_Reszta);
 
@@ -128,6 +134,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         ustawListenerNaBDalej();
 
         pokazModal();   //Okienko modalne z informacjami o aplikacji:
+
+        //Jezeli starujemy, to nie grac slowa, bo glupio.. :
+        if (savedInstanceState == null) {
+            //licznikWykonan = 0;     //startujemy licznik wykonan dla onResume
+            nieGraj = true;  //dajemy znac, zeby nie gral slowa, bo jestesmy po obrocie ekranu(i glupio...)
+        }
 
         /* 2017.08.-09 - ski ski - porzejscie na onResume:
         mRozdzielacz.ustaw(lBts,true,true,false);
@@ -251,7 +263,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setTypeface(null, Typeface.BOLD);
             //klawisz na pojscie dale j lekkim opoznieniem (dydaktyka):
-            int opozniacz1 = 1000;//1500;  //milisekundy
+            int opozniacz1 = 2500;//1500;  //milisekundy
             Handler handler1 = new Handler();
             handler1.postDelayed(new Runnable() {
                 public void run() {
@@ -260,12 +272,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     bAgain.setVisibility(View.VISIBLE);
                 }
             }, opozniacz1);
-            odegrajZAssets("nagrania/oklaski.ogg",5);
+            odegrajZAssets("nagrania/komentarze/pozytywy/ding.ogg",0);
+            odegrajZAssets("nagrania/komentarze/pozytywy/female/brawo-brawo.m4a",200);
+            odegrajZAssets("nagrania/komentarze/pozytywy/oklaski.ogg",2700);
         } //if
         else {
-            odegrajZAssets("nagrania/zle.ogg",0);
+            odegrajZAssets("nagrania/komentarze/negatywy/zle.ogg",0);
+            odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a",320);
         }
-    } //koniec metody
+    } //koniec Metody()
 
 
     public void odegrajZAssets(final String sciezka_do_pliku_parametr, int delay_milisek) {
@@ -316,9 +331,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         // Wyswietlenie biezacego obrazka //
         //--------------------------------//
 
-        String imageName = "";
-        String nazwaObrazka;
-
         tvWyraz.setText(""); //nazwa pod obrazkiem - najpierw czyscimy stara nazwe
         //W trybie treningowym od razu pokazujemy czerwopny text pod obrazkiem:
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
@@ -326,49 +338,27 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             tvWyraz.setVisibility(View.VISIBLE);
         }
 
-        //Wyswietlanie obrazka :
-        nazwaObrazka = mRozdzielacz.getAktWybrZasob();
+        //WYSWIETLENIE OBRAZKA :
+        String nazwaObrazka = mRozdzielacz.getAktWybrZasob();  //zawiera rozrzerzenie (.jpg , .bmp , ...)
         try {
             if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) { //pobranie z Assets
                 InputStream stream = getAssets().open(katalog + "/" + nazwaObrazka);
                 Drawable drawable = Drawable.createFromStream(stream, null);
                 imageView.setImageDrawable(drawable);
-            } else  {  //pobranie z directory
+            } else  {  //pobranie obrazka z directory
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 2;
                 String robAbsolutePath = dirObrazkiNaSD+"/"+nazwaObrazka;
                 Bitmap bm = BitmapFactory.decodeFile(robAbsolutePath, options);
                 imageView.setImageBitmap(bm);
             }
-
-          /* ski ski - do wykorzystania(?) 2017.08.05
-
-            int opozniacz1 = 600;  //milisekundy
-            Handler handler1 = new Handler();
-            handler1.postDelayed(new Runnable() {
-                public void run() {
-                    //ski ski - potem wykorzystac (if any) - 2017.08.05
-                    //Wypisanie nazwy (z lekkim opoznieniem):
-                    //tvWyraz.setText(robStrFinal);
-                }
-            }, opozniacz1);
-*/
-
-            //ODEGRANIE DŹWIĘKU:
-            if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
-                //odeggranie z Assets (tam ogg):
-                /* ski ski - na razie wylaczam - 2017.08.04
-                sciezka_do_pliku_dzwiekowego = nagrania + "/" + robStrFinal + ".ogg"; //ustawienie zmiennej glob. - glob., bo bedzie potrzebna rowniez w onCliknaImage...
-                odegrajZAssets(sciezka_do_pliku_dzwiekowego,300);
-                */
-            };
-
         } catch (Exception e) {
             Log.e("4321", e.getMessage());
             Toast.makeText(this, "Problem z wyswietleniem obrazka...", Toast.LENGTH_SHORT).show();
         }
-
-    } // koniec metody setCurrentImage
+        //ODEGRANIE DŹWIĘKU
+        odegrajWyraz(600);
+    } // koniec Metody()
 
 
     /**
@@ -465,32 +455,129 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         bAgain.setVisibility(View.INVISIBLE);
 
 
-
-
-        //Jezeli bez obrazkow, to trzeba jakos 'uczulić' puste miejsce po obrazku, zeby nadal mozna bylo wchodzic do Ustawien:
+        //Jezeli bez obrazkow, to trzeba jakos 'uczulić' puste miejsce po obrazku, zeby nadal mozna bylo wchodzic do Ustawien i uzyskiwac słowo po krotkim kliknieciu:
         if (ZmienneGlobalne.getInstance().BEZ_OBRAZKOW) {
             l_obrazek_i_reszta.setOnLongClickListener(this);
-        } else {
+            l_obrazek_i_reszta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    odegrajWyraz(0);
+                }
+            });
+        } else { //teraz obrazek widac, wiec trzeba powylaczac listenery, bo dodatkowy obszar nadal aktywny:
             l_obrazek_i_reszta.setOnLongClickListener(null);
+            l_obrazek_i_reszta.setOnClickListener(null);
         }
     } //koniec Metody()
 
 
-        public static ArrayList<File> findObrazki(File katalog) {
-        /* ******************************************************************************************************************* */
-        /* Zwraca liste obrazkow (plikow graficznych .jpg .bmp .png) z katalogu katalog - uzywana tylko dla przypadku SD karty */
-        /* ******************************************************************************************************************* */
-            ArrayList<File> al = new ArrayList<File>(); //al znaczy "Array List"
-            File[] files = katalog.listFiles(); //w files WSZYSTKIE pliki z katalogu (rowniez nieporządane)
-            if (files != null) { //lepiej sprawdzic, bo wali sie w petli for na niektorych emulatorach...
-                for (File singleFile : files) {
-                    if ((singleFile.getName().toUpperCase().endsWith(".JPG")) || (singleFile.getName().toUpperCase().endsWith(".PNG")) || (singleFile.getName().toUpperCase().endsWith(".BMP"))) {
-                        al.add(singleFile);
+    public static ArrayList<File> findObrazki(File katalog) {
+    /* ******************************************************************************************************************* */
+    /* Zwraca liste obrazkow (plikow graficznych .jpg .bmp .png) z katalogu katalog - uzywana tylko dla przypadku SD karty */
+    /* ******************************************************************************************************************* */
+        ArrayList<File> al = new ArrayList<File>(); //al znaczy "Array List"
+        File[] files = katalog.listFiles(); //w files WSZYSTKIE pliki z katalogu (rowniez nieporządane)
+        if (files != null) { //lepiej sprawdzic, bo wali sie w petli for na niektorych emulatorach...
+            for (File singleFile : files) {
+                if ((singleFile.getName().toUpperCase().endsWith(".JPG")) || (singleFile.getName().toUpperCase().endsWith(".PNG")) || (singleFile.getName().toUpperCase().endsWith(".BMP"))) {
+                    al.add(singleFile);
+                }
+            }
+        }
+        return al;
+    }  //koniec metody findObrazki
+
+
+    public void odegrajZkartySD(final String sciezka_do_pliku_parametr, int delay_milisek) {
+    /* ************************************** */
+    /* Odegranie pliku dzwiekowego z karty SD */
+    /* ************************************** */
+        //Na pdst. parametru metody szukam odpowiedniego pliku do odegrania:
+        //(typuję, jak moglby sie nazywac plik i sprawdzam, czy istbieje. jezeli istnieje - OK, wychodze ze sprawdzania majac wytypowaną nazwe pliku)
+        String pliczek;
+        pliczek=sciezka_do_pliku_parametr+".m4a";
+        File file = new File(pliczek);
+        if (!file.exists()) {
+            pliczek = sciezka_do_pliku_parametr+".mp3";
+            file = new File(pliczek);
+            if (!file.exists()) {
+                pliczek = sciezka_do_pliku_parametr+".ogg";
+                file = new File(pliczek);
+                if (!file.exists()) {
+                    pliczek = sciezka_do_pliku_parametr+".wav";
+                    file = new File(pliczek);
+                    if (!file.exists()) {
+                        pliczek = sciezka_do_pliku_parametr+".amr";
+                        file = new File(pliczek);
+                        if (!file.exists()) {
+                            pliczek=""; //to trzeba zrobic, zeby 'gracefully wyjsc z metody (na Android 4.4 sie wali, jesli odgrywa plik nie istniejacy...)
+                            //dalej nie sprawdzam/nie typuję... (na razie) (.wma nie sa odtwarzane na Androidzie)
+                        }
                     }
                 }
             }
-            return al;
-        }  //koniec metody findObrazki
+        }
+        //Odegranie znalezionego (if any) poliku:
+        if (pliczek.equals("")) {
+            return;  //bo Android 4.2 wali sie, kiedy próbujemy odegrac plik nie istniejący
+        }
+        Handler handler = new Handler();
+        final String finalPliczek = pliczek; //klasa wewnetrzna ponizej - trzeba "kombinowac"...
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                try {
+                    Uri u = Uri.parse(finalPliczek); //parse(file.getAbsolutePath());
+                    mp = MediaPlayer.create(getApplicationContext(), u);
+                    mp.start();
+                } catch (Exception e) {
+                    //toast("Nie udalo się odegrać pliku z podanego katalogu...");
+                    Log.e("4321", e.getMessage()); //"wytłumiam" komunikat
+                }
+                finally {
+                    //Trzeba koniecznie zakonczyc Playera, bo inaczej nie slychac dzwieku:
+                    //mozna tak:
+                    mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                        }
+                    });
+                    //albo mozna tak:
+                    //mPlayer.setOnCompletionListener(getApplicationContext()); ,
+                    //a dalej w kodzie klasy zdefiniowac tego listenera, czyli public void onCompletion(MediaPlayer xx) {...}
+                }
+            }
+        }, delay_milisek);
+    } //koniec metody odegrajZkartySD
+
+
+    private void odegrajWyraz(int opozniacz) {
+    /*************************************************/
+    /* Odegranie wyrazu wybranego przez Rozdzielacz */
+    /*************************************************/
+        //najpierw sprawdzam, czy trzeba:
+        //Jezeli w ustawieniech jest, zeby nie grac - to wychodzimy:
+        if (ZmienneGlobalne.getInstance().BEZ_DZWIEKU == true) {
+            return;
+        }
+        //zeby nie gral zaraz po po starcie apki:
+        if (nieGraj) {
+            nieGraj = false;
+            return;
+        }
+        //Granie wlasciwe:
+        String nazwaObrazka = mRozdzielacz.getAktWybrZasob();  //zawiera rozrzerzenie (.jpg , .bmp , ...)
+        String rdzenNazwy = Rozdzielacz.getRemovedExtensionName(nazwaObrazka);
+        if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
+            //odeggranie z Assets (tam ogg):
+            String sciezka_do_pliku_dzwiekowego = "nagrania/" + rdzenNazwy + ".ogg";
+            odegrajZAssets(sciezka_do_pliku_dzwiekowego, opozniacz);
+        } else {  //pobranie nagrania z directory
+            //odegranie z SD (na razie nie zajmujemy sie rozszerzeniem=typ pliku dzwiekowego jest (prawie) dowolny):
+            String sciezka_do_pliku_dzwiekowego = dirObrazkiNaSD+"/"+rdzenNazwy; //tutaj przekazujemy rdzen nazwy, bez rozszerzenia, bo mogą być różne (.mp3, ogg, .wav...)
+            odegrajZkartySD(sciezka_do_pliku_dzwiekowego, opozniacz);
+        }
+        return;
+    }  //koniec Metody()
 
 
     private void wypiszOstrzezenie(String tekscik) {

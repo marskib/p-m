@@ -11,7 +11,6 @@ import android.app.Application;
  */
 public class ZmienneGlobalne extends Application {
 
-    public boolean zGlosem;
     public boolean PELNA_WERSJA;
     public boolean ZRODLEM_JEST_KATALOG; //Co jest aktualnie źródlem obrazków - Asstes czy Katalog (np. katalog na karcie SD)
     public String  WYBRANY_KATALOG;      //katalog (if any) wybrany przez usera jako zrodlo obrazkow (z external SD lub Urządzenia)
@@ -34,7 +33,6 @@ public class ZmienneGlobalne extends Application {
 
     //konstruktor tego singletona + ustawienia poczatkowe aplikacji:
     private ZmienneGlobalne() {
-        zGlosem      = true;  //false - na potrzeby developmentu w 1.05 i na 232 Wawrz.40
         ALFABET      = true;
         PELNA_WERSJA = true;
         POZIOM       = 4;

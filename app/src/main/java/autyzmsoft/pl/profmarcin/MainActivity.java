@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -28,8 +30,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
@@ -64,6 +68,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     Intent intModalDialog;  //Na okienko dialogu 'modalnego' orzy starcie aplikacji
 
     static MediaPlayer mp = null;
+
+    File dirObrazkiNaSD;                           //katalog z obrazkami na SD (internal i external)
+    public static ArrayList<File> myObrazkiSD;     //lista obrazkow w SD
 
 
 
@@ -119,19 +126,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         wygenerujButtony();
 
         ustawListenerNaBDalej();
-
-        //Pobranie listy obrazkow (na razie tylko Assets - 2017.08.06):
-        AssetManager mgr = getAssets();
-        try {
-            listaObrazkowAssets = mgr.list(katalog);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mRozdzielacz = new Rozdzielacz(listaObrazkowAssets.length, lBts);
-
-        //Toast.makeText(this, "Ustawienia - długie dotknięcie na obrazku", Toast.LENGTH_LONG).show();
-
 
         pokazModal();   //Okienko modalne z informacjami o aplikacji:
 
@@ -323,24 +317,28 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //--------------------------------//
 
         String imageName = "";
-        final String nazwaObrazka;
+        String nazwaObrazka;
 
         tvWyraz.setText(""); //nazwa pod obrazkiem - najpierw czyscimy stara nazwe
+        //W trybie treningowym od razu pokazujemy czerwopny text pod obrazkiem:
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setVisibility(View.VISIBLE);
         }
 
         //Wyswietlanie obrazka :
+        nazwaObrazka = mRozdzielacz.getAktWybrZasob();
         try {
             if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) { //pobranie z Assets
-                nazwaObrazka = mRozdzielacz.getAktWybrZasob();
                 InputStream stream = getAssets().open(katalog + "/" + nazwaObrazka);
                 Drawable drawable = Drawable.createFromStream(stream, null);
                 imageView.setImageDrawable(drawable);
-            } else {  //pobranie z directory
-               //ski ski 2017.08.03 - na razie wylaczam
-                nazwaObrazka = "wypelniacz...";
+            } else  {  //pobranie z directory
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inSampleSize = 2;
+                String robAbsolutePath = dirObrazkiNaSD+"/"+nazwaObrazka;
+                Bitmap bm = BitmapFactory.decodeFile(robAbsolutePath, options);
+                imageView.setImageBitmap(bm);
             }
 
           /* ski ski - do wykorzystania(?) 2017.08.05
@@ -436,7 +434,26 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         lBts = poziom;
 
+        //Tworzenie listy obrazków z Katalogu: ski ski - na razie tentatywnie 2-017.08.19
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == true) {
+            dirObrazkiNaSD = new File(ZmienneGlobalne.getInstance().WYBRANY_KATALOG);
+            myObrazkiSD = findObrazki(dirObrazkiNaSD);
+            mRozdzielacz = new Rozdzielacz(myObrazkiSD.size(), lBts);
+        };
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {
+            //Pobranie listy obrazkow z Assets:
+            AssetManager mgr = getAssets();
+            try {
+                listaObrazkowAssets = mgr.list(katalog);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mRozdzielacz = new Rozdzielacz(listaObrazkowAssets.length, lBts);
+        }
+        //************* KONIEC PROBY TENTATYWNEJ **********************
+
         mRozdzielacz.ustaw(lBts, wszystkieRozne, roznicujObrazki,false);
+
         wygenerujButtony();
         mRozdzielacz.dajZestaw();
         setCurrentImage();
@@ -447,6 +464,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         bDalej.setVisibility(View.INVISIBLE);
         bAgain.setVisibility(View.INVISIBLE);
 
+
+
+
         //Jezeli bez obrazkow, to trzeba jakos 'uczulić' puste miejsce po obrazku, zeby nadal mozna bylo wchodzic do Ustawien:
         if (ZmienneGlobalne.getInstance().BEZ_OBRAZKOW) {
             l_obrazek_i_reszta.setOnLongClickListener(this);
@@ -454,6 +474,24 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             l_obrazek_i_reszta.setOnLongClickListener(null);
         }
     } //koniec Metody()
+
+
+        public static ArrayList<File> findObrazki(File katalog) {
+        /* ******************************************************************************************************************* */
+        /* Zwraca liste obrazkow (plikow graficznych .jpg .bmp .png) z katalogu katalog - uzywana tylko dla przypadku SD karty */
+        /* ******************************************************************************************************************* */
+            ArrayList<File> al = new ArrayList<File>(); //al znaczy "Array List"
+            File[] files = katalog.listFiles(); //w files WSZYSTKIE pliki z katalogu (rowniez nieporządane)
+            if (files != null) { //lepiej sprawdzic, bo wali sie w petli for na niektorych emulatorach...
+                for (File singleFile : files) {
+                    if ((singleFile.getName().toUpperCase().endsWith(".JPG")) || (singleFile.getName().toUpperCase().endsWith(".PNG")) || (singleFile.getName().toUpperCase().endsWith(".BMP"))) {
+                        al.add(singleFile);
+                    }
+                }
+            }
+            return al;
+        }  //koniec metody findObrazki
+
 
     private void wypiszOstrzezenie(String tekscik) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert);   //Theme.Dialog);    //R.style.MyDialogTheme);

@@ -1,8 +1,10 @@
 package autyzmsoft.pl.profmarcin;
 
+import java.io.File;
 import java.util.ArrayList;
 
-import static autyzmsoft.pl.profmarcin.MainActivity.*;
+import static autyzmsoft.pl.profmarcin.MainActivity.listaObrazkowAssets;
+import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
 
 /**
  * Created by developer on 2017-08-06.
@@ -21,8 +23,15 @@ public class Pamietacz {
     }  //konie Konstruktora
 
     private void wypelnijListeZasobow() {
-        for (String item : listaObrazkowAssets) {
-            listaZasobow.add(item);
+
+        if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
+            for (String item : listaObrazkowAssets) {
+                listaZasobow.add(item);
+            }
+        } else {
+            for (File file : myObrazkiSD) {
+                listaZasobow.add(file.getName());
+            }
         }
     } //koniec Metody()
 

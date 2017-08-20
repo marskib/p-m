@@ -1,6 +1,7 @@
 package autyzmsoft.pl.profmarcin;
 
 import static autyzmsoft.pl.profmarcin.MainActivity.listaObrazkowAssets;
+import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
 import static autyzmsoft.pl.profmarcin.MainActivity.tButtons;
 
 /**
@@ -138,6 +139,37 @@ public class Rozdzielacz {
 
 
 
+
+    private String dajDozwolonyZasob() {
+        boolean zKatalogu = ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
+        String zasob="";
+        if (wszystkieRozne) {
+            //generujemy tak dlugo, az trafimy na taki, ktorego jeszcze nie ma na juz pokazywanych klawiszach:
+            do {
+                int rob = (int) (Math.random()*this.ileObrazkow);
+                if (!zKatalogu) {
+                    zasob = listaObrazkowAssets[rob];      //pascal: FOperacje.Memo1.Lines[Random(IleObrazkow)]; UWAGA 'zasob' jest tutaj nazwa pliku z rozszerzeniem,
+                } else {
+                    zasob = myObrazkiSD.get(rob).getName();
+                }
+            } while (jestJuzTakiNaKlawiszach(zasob));
+        }
+        else {
+            int rob = (int) (Math.random() * this.ileObrazkow);
+            if (!zKatalogu) {
+                zasob = listaObrazkowAssets[rob];
+            } else {
+                zasob = myObrazkiSD.get(rob).getName();
+            }
+        }
+        return zasob;
+    }  //koniec Metody()
+
+
+
+
+/* oryginal skib skib 2017.08.20
+
     private String dajDozwolonyZasob() {
         String zasob="";
         if (wszystkieRozne) {
@@ -154,6 +186,7 @@ public class Rozdzielacz {
         return zasob;
     }  //koniec metody
 
+*/
 
     private boolean jestJuzTakiNaKlawiszach(String zasob) {
         /**
@@ -173,21 +206,6 @@ public class Rozdzielacz {
         } //while
         return znalazl;
     } //koniec matody()
-
-
-    public static String getRemovedExtensionName(String name){
-        /**
-         * Pomocnicza, widoczna wszedzie metodka na pozbycie sie rozszerzenia z nazwy pliku - dostajemy "goly" wyraz
-         */
-        String baseName;
-        if(name.lastIndexOf(".")==-1){
-            baseName=name;
-        }else{
-            int index=name.lastIndexOf(".");
-            baseName=name.substring(0,index);
-        }
-        return baseName;
-    }  //koniec metody()
 
 
 
@@ -240,6 +258,22 @@ public class Rozdzielacz {
             }
         }
     }  //koniec Metody()
+
+
+    public static String getRemovedExtensionName(String name){
+        /**
+         * Pomocnicza, widoczna wszedzie metodka na pozbycie sie rozszerzenia z nazwy pliku - dostajemy "goly" wyraz
+         */
+        String baseName;
+        if(name.lastIndexOf(".")==-1){
+            baseName=name;
+        }else{
+            int index=name.lastIndexOf(".");
+            baseName=name.substring(0,index);
+        }
+        return baseName;
+    }  //koniec metody()
+
 
 
 }

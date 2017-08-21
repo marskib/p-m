@@ -85,9 +85,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     //reload my activity with permission granted or use the features what required the permission
                 } else  {
                     //toast("Nie udzieliłeś zezwolenia na odczyt. Opcja 'obrazki z mojego katalogu' nie będzie działać. Możesz zainstalować aplikacje ponownie lub zmienić zezwolenie w Menadżerze aplikacji.");
-                    wypiszOstrzezenie("Nie udzieliłeś zezwolenia na odczyt. Opcja 'obrazki z mojego katalogu' nie będzie działać. Możesz zainstalować aplikację ponownie lub zmienić zezwolenie w Menadżerze aplikacji.");
-                    Button rbKatalog = (RadioButton) findViewById(R.id.rb_zKatalogu);
-                    rbKatalog.setEnabled(false);
+                   wypiszOstrzezenie("Nie udzieliłeś zezwolenia na odczyt. Opcja 'mój katalog' nie będzie działać. Możesz zainstalować aplikację ponownie lub zmienić zezwolenie w Menadżerze aplikacji.");
+                   ZmienneGlobalne.getInstance().ODMOWA_DOST = true;  //dajemy znać, ze odmowiono dostepu; bedzie potrzebne na Ustawieniach przy próbie wybrania wlasnych zasobow
                 }
             }
         }
@@ -288,6 +287,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     // Odegranie dzwieku umieszczonego w Assets (w katalogu 'nagrania'):
     /* ***************************************************************** */
 
+    if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -479,19 +480,22 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         File[] files = katalog.listFiles(); //w files WSZYSTKIE pliki z katalogu (rowniez nieporządane)
         if (files != null) { //lepiej sprawdzic, bo wali sie w petli for na niektorych emulatorach...
             for (File singleFile : files) {
-                if ((singleFile.getName().toUpperCase().endsWith(".JPG")) || (singleFile.getName().toUpperCase().endsWith(".PNG")) || (singleFile.getName().toUpperCase().endsWith(".BMP"))) {
+                if ((singleFile.getName().toUpperCase().endsWith(".JPG")) || (singleFile.getName().toUpperCase().endsWith(".PNG")) || (singleFile.getName().toUpperCase().endsWith(".BMP")) || (singleFile.getName().toUpperCase().endsWith(".JPEG")) ) {
                     al.add(singleFile);
                 }
             }
         }
         return al;
-    }  //koniec metody findObrazki
+    }  //koniec Matody()
 
 
     public void odegrajZkartySD(final String sciezka_do_pliku_parametr, int delay_milisek) {
     /* ************************************** */
     /* Odegranie pliku dzwiekowego z karty SD */
     /* ************************************** */
+
+        if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
+
         //Na pdst. parametru metody szukam odpowiedniego pliku do odegrania:
         //(typuję, jak moglby sie nazywac plik i sprawdzam, czy istbieje. jezeli istnieje - OK, wychodze ze sprawdzania majac wytypowaną nazwe pliku)
         String pliczek;
@@ -581,7 +585,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
     private void wypiszOstrzezenie(String tekscik) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert);   //Theme.Dialog);    //R.style.MyDialogTheme);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this, R.style.MyDialogTheme);
         builder1.setMessage(tekscik);
         builder1.setCancelable(true);
 

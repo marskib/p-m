@@ -38,11 +38,16 @@ public class Rozdzielacz {
     }
 
     public String getAktWybrZasob() {
-        /**
-         * robie getter'a , zeby setImage() wyswietlil ten wlasnie ten obrazek.
-         */
+        /** robie getter'a , zeby setImage() wyswietlil ten wlasnie ten obrazek. */
         return aktWybrZasob;
     }
+
+    //na potrzeby diagnostyki:
+    public String getIleObrazkow() {
+        return Integer.toString(ileObrazkow);
+    }
+
+
 
     private int
         popWybrKl,

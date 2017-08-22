@@ -259,8 +259,21 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }
             //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
             tvWyraz.setVisibility(View.VISIBLE);
+
+            /* WYLACZAM NA CZAS DIAGNOSTYKI - przywrocic
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setTypeface(null, Typeface.BOLD);
+            */
+
+            // ski ski diagnostyka
+            String strDiag = String.valueOf(ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
+            strDiag = strDiag+" "+" "+mRozdzielacz.getIleObrazkow()+" "+ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
+            tvWyraz.setText(strDiag);
+            tvWyraz.setTextSize(18);
+            tvWyraz.setTypeface(null,Typeface.NORMAL);
+            //koniec diagnostyki
+
+
             //klawisz na pojscie dale j lekkim opoznieniem (dydaktyka):
             int opozniacz1 = 2500;//1500;  //milisekundy
             Handler handler1 = new Handler();

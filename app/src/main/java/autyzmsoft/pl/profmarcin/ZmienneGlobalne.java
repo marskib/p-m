@@ -40,7 +40,7 @@ public class ZmienneGlobalne extends Application {
         nieGrajJestemW105 = true; //wyrzucić po skonczonym developmencie
 
 
-        PELNA_WERSJA = false;
+        PELNA_WERSJA = true;
         POZIOM       = 4;
         WSZYSTKIE_ROZNE  = true;
         ROZNICUJ_OBRAZKI = true;

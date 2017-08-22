@@ -9,10 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -78,7 +75,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
                 ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = true;
                 ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = false;
             }     else {
-                if (isCheckedNoSound) {  //bez dzwieku (alemusimy zapewnic obrazki no matter what..)
+                if (isCheckedNoSound) {  //bez dzwieku (ale musimy zapewnic obrazki no matter what..)
                     ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = false;
                     ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = true;
                 } else { //na wszelki wypadek...

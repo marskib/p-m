@@ -15,29 +15,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-
-        import android.app.Activity;
-        import android.content.Intent;
-        import android.os.Build;
-        import android.os.Bundle;
-        import android.os.Environment;
-        import android.support.annotation.Nullable;
-        import android.support.v4.os.EnvironmentCompat;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.Toast;
-
-
-        import java.io.BufferedReader;
-        import java.io.DataInputStream;
-        import java.io.File;
-        import java.io.FileInputStream;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.List;
 
 /**
  * Created by developer on 2017-03-06.
@@ -99,16 +77,7 @@ public class InternalExternalKlasa extends Activity {
         //bExternal.setVisibility(View.INVISIBLE);
         //Informacja na bInternal i zamykanie interesu na klik (rozwiazanie tymczasowe - 2017.05.19):
         bInternal = (Button) findViewById(R.id.bInternal);
-        // bInternal.setText("Aplikacja nie odnalazła zewnętrznej karty SD."+"\n"+"Bez karty SD wybrana opcja nie działa.");
-/*
-            bInternal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
-*/
-        //}
+
         //Przygotowanie do wywolania wybieracza katalogow:
         //  else
         {
@@ -116,6 +85,7 @@ public class InternalExternalKlasa extends Activity {
             intent.putExtra(FileChooserActivity.INPUT_FOLDER_MODE, true);  //tryb wyboru katalogu
         }
     } //koniec metody
+
 
     public void toast(String napis, boolean isLong) {
         int dlugosc = Toast.LENGTH_SHORT;
@@ -127,10 +97,10 @@ public class InternalExternalKlasa extends Activity {
     public void bInternalClick(View view) {
         String wewnetrznaSD = Environment.getExternalStorageDirectory().getPath();
         //wywolania browsera:
-        // intent.putExtra(FileChooserActivity.INPUT_START_FOLDER, "/storage/emulated/0"); //ostatni parametr powinien byc, bo problemy...
         intent.putExtra(FileChooserActivity.INPUT_START_FOLDER, wewnetrznaSD); //ostatni parametr powinien byc, bo problemy...
         this.startActivityForResult(intent, 0);
-    }
+    }  //koniec Metody()
+
 
     public void bExternalClick(View view) {
         if (rootToExtSD != null) {
@@ -139,7 +109,7 @@ public class InternalExternalKlasa extends Activity {
             this.startActivityForResult(intent, 0);
         } else
             toast("Aplikacja nie odnalazła zewnętrznej karty SD.",true);
-    }
+    }  //koniec Metody()
 
 
     @Override
@@ -167,6 +137,7 @@ public class InternalExternalKlasa extends Activity {
             ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = true;
 
             finish();
+
 /*
             String message = fileCreated? "File created" : "File opened";
             message += ": " + filePath;
@@ -176,7 +147,6 @@ public class InternalExternalKlasa extends Activity {
 
         }
     } //koniec Metody
-
 
 
     public String[] getExternalStorageDirectoriesSkib() {

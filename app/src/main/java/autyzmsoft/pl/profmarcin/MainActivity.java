@@ -27,7 +27,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
@@ -260,17 +260,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
             tvWyraz.setVisibility(View.VISIBLE);
 
-            /* WYLACZAM NA CZAS DIAGNOSTYKI - przywrocic
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setTypeface(null, Typeface.BOLD);
-            */
 
             // ski ski diagnostyka
-            String strDiag = String.valueOf(ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
+       /*     String strDiag = String.valueOf(ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
             strDiag = strDiag+" "+" "+mRozdzielacz.getIleObrazkow()+" "+ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
             tvWyraz.setText(strDiag);
             tvWyraz.setTextSize(18);
-            tvWyraz.setTypeface(null,Typeface.NORMAL);
+            tvWyraz.setTypeface(null,Typeface.NORMAL);*/
             //koniec diagnostyki
 
 
@@ -284,15 +282,48 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     bAgain.setVisibility(View.VISIBLE);
                 }
             }, opozniacz1);
-            odegrajZAssets("nagrania/komentarze/pozytywy/ding.ogg",0);
-            odegrajZAssets("nagrania/komentarze/pozytywy/female/brawo-brawo.m4a",200);
-            odegrajZAssets("nagrania/komentarze/pozytywy/oklaski.ogg",2700);
+            odegrajZAssets("nagrania/komentarze/ding.ogg",0);
+            //odegrajZAssets("nagrania/komentarze/pozytywy/female/01-brawo-brawo.m4a",400);
+            //Odegranie losowej pochwały:
+            String komcie_path = "nagrania/komentarze/pozytywy/female";
+            //Facet, czy kobieta:
+            Random rand = new Random();
+            int n = rand.nextInt(3); // Gives n such that 0 <= n < 3
+            if (n==2) komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 2 razy czesciej
+            //teraz konkretny (losowy) plik:
+            String doZagrania = dajLosowyPlik(komcie_path);
+            odegrajZAssets(komcie_path+"/"+doZagrania,400);
+            odegrajZAssets("nagrania/komentarze/oklaski.ogg",2900);
         } //if
         else {
-            odegrajZAssets("nagrania/komentarze/negatywy/zle.ogg",0);
+            odegrajZAssets("nagrania/komentarze/zle.ogg",0);
             odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a",320);
         }
     } //koniec Metody()
+
+    String dajLosowyPlik(String aktywa) {
+        //Zwraca losowy plik z podanego katalogu w Assets; używana do gebnerowania losowej pochwały/nagany
+
+        String[] listaKomciow = null;
+        AssetManager mgr = getAssets();
+        try {
+            listaKomciow = mgr.list(aktywa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int licznosc = listaKomciow.length;
+        int rnd = (int) (Math.random()*licznosc);
+        int i = -1;
+        String plik = null;
+        for (String file : listaKomciow) {
+            i++;
+            if (i==rnd) {
+                plik = file;
+                break;
+            }
+        }
+        return plik;
+    } //koniec metody()
 
 
     public void odegrajZAssets(final String sciezka_do_pliku_parametr, int delay_milisek) {

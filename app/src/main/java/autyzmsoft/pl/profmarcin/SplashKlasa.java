@@ -257,7 +257,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
 
     private void toast(String napis) {
-        Toast.makeText(getApplicationContext(),napis,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),napis,Toast.LENGTH_SHORT).show();
     }
 
 

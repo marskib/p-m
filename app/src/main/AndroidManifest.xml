@@ -47,9 +47,11 @@
 
         <activity
             android:name=".InternalExternalKlasa"
-            android:label="wybierz katalog"
-            android:theme="@android:style/Theme.Dialog">      <!-- male okienko na srodku, nie przykrywa macierzystego activity -->
+            android:label="wybierz katalog">
+
         </activity>
+
+        <!--android:theme="@android:style/Theme.Dialog">      &lt;!&ndash; male okienko na srodku, nie przykrywa macierzystego activity &ndash;&gt;-->
 
         <activity
             android:name=".WersjaDemoOstrzez"

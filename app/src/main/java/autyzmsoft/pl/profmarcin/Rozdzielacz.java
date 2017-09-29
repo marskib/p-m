@@ -1,5 +1,7 @@
 package autyzmsoft.pl.profmarcin;
 
+import android.text.TextUtils;
+
 import static autyzmsoft.pl.profmarcin.MainActivity.listaObrazkowAssets;
 import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
 import static autyzmsoft.pl.profmarcin.MainActivity.tButtons;
@@ -12,7 +14,7 @@ import static autyzmsoft.pl.profmarcin.MainActivity.tButtons;
 
 public class Rozdzielacz {
 
-    Pamietacz mPamietacz;  //do pamietania przydzielonych obrazkow, zeby w miare mozliwosci nie powtarzaly sie
+    private Pamietacz mPamietacz;  //do pamietania przydzielonych obrazkow, zeby w miare mozliwosci nie powtarzaly sie
 
     private int
         ileObrazkow,
@@ -38,7 +40,7 @@ public class Rozdzielacz {
     }
 
     public String getAktWybrZasob() {
-        /** robie getter'a , zeby setImage() wyswietlil ten wlasnie ten obrazek. */
+        /* robie getter'a , zeby setImage() wyswietlil ten wlasnie ten obrazek. */
         return aktWybrZasob;
     }
 
@@ -120,6 +122,7 @@ public class Rozdzielacz {
             aktWybrZasob = mPamietacz.dajSwiezyZasob(); //obiekt Pamietacz ma zapewnic niepowtarzalnosc wyboru (jak juz sie 'wyczerpie', to 'napelni' sie na nowo
             tButtons[aktWybrKl].setNazwaPliku(aktWybrZasob);    //zapamietujemy pelna (bez sciezki) nazwe pliku, bo moze byc potrzebna
             String wyraz = getRemovedExtensionName(aktWybrZasob); //na klawiszu widac goly wyraz bez .jpg
+            wyraz = usunLastDigitIfAny(wyraz);
             tButtons[aktWybrKl].setText(wyraz);
         }
 
@@ -132,12 +135,14 @@ public class Rozdzielacz {
                 String zasob = dajDozwolonyZasob();  //ta proc. zadziala poprawnie rowniez wtedy kiedy jest RoznicowanieObrazkow - proc. bierze pod uwage juz 'oklejony' klawisz
                 tButtons[i].setNazwaPliku(zasob);    //zapamietujemy pelna (bez sciezki) nazwe pliku, bo moze byc potrzebna
                 String wyraz = getRemovedExtensionName(zasob); //na klawiszu widac goly wyraz bez .jpg
+                wyraz = usunLastDigitIfAny(wyraz);
                 tButtons[i].setText(wyraz);
             }
             //Nazwę wybranego pliku i wyraz na wybranym klawiszu przekazuję na zawnatrz:
             if (i==aktWybrKl) {
                 aktWybrZasob = tButtons[aktWybrKl].getNazwaPliku();
                 aktWybrWyraz = getRemovedExtensionName(aktWybrZasob);
+                aktWybrWyraz = usunLastDigitIfAny(aktWybrWyraz);
             }
         } //for
     }//koniec metody dajZestaw()
@@ -278,6 +283,23 @@ public class Rozdzielacz {
         }
         return baseName;
     }  //koniec metody()
+
+    public static String usunLastDigitIfAny(String name) {
+        /**
+         * Pomocnicza, widoczna wszedzie, usuwa ewentualna ostatnia cyfre w nazwie zdjecia (bo moze byc pies.jpg, pies1.hjpg. pies2.jpg - rozne psy)
+         * Zakladamy, ze dostajemy nazwe bez rozszerzenia i bez kropki na koncu
+         */
+          int koniec = name.length()-1;
+          if (name.charAt(koniec)=='1'||name.charAt(koniec)=='2'||name.charAt(koniec)=='3'||name.charAt(koniec)=='4'||name.charAt(koniec)=='5'||
+              name.charAt(koniec)=='6'||name.charAt(koniec)=='7'||name.charAt(koniec)=='8'||name.charAt(koniec)=='9'||name.charAt(koniec)=='0') {
+
+              return name.substring(0,koniec);
+          }
+          else {
+
+              return name;
+          }
+    } //koniec Metody()
 
 
 

@@ -26,11 +26,14 @@ public class Pamietacz {
 
         if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
             for (String item : listaObrazkowAssets) {
+                Rozdzielacz.usunLastDigitIfAny(item);
                 listaZasobow.add(item);
             }
         } else {
             for (File file : myObrazkiSD) {
-                listaZasobow.add(file.getName());
+                String zasob = file.getName();
+                Rozdzielacz.usunLastDigitIfAny(zasob);
+                listaZasobow.add(zasob);
             }
         }
     } //koniec Metody()
@@ -44,6 +47,8 @@ public class Pamietacz {
         String zasob = listaZasobow.get(rob);   //usuwamy ten zasob z listy (zeby juz wiecej nie wypadl w losowaniu)
         listaZasobow.remove(rob);               //bo 'zdjelismy' jeden zasob
         return zasob;
-    }; //koniec Metody()
+    } //koniec Metody()
 
-};
+
+
+}

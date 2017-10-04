@@ -10,6 +10,7 @@ import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
  * Created by developer on 2017-08-06.
  * obiekt zapewniajacy wybor 'niepowtarzalnego' obrazka za każdym kliknieciem
  * Na wzor obiektu TPamietacz z pascalowej wersji ProfMarcina.
+ * Pamiętane sa'Zasob', czyli NAZWY plików z rozszerzeniami
  */
 
 public class Pamietacz {
@@ -26,13 +27,11 @@ public class Pamietacz {
 
         if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
             for (String item : listaObrazkowAssets) {
-                Rozdzielacz.usunLastDigitIfAny(item);
                 listaZasobow.add(item);
             }
         } else {
             for (File file : myObrazkiSD) {
                 String zasob = file.getName();
-                Rozdzielacz.usunLastDigitIfAny(zasob);
                 listaZasobow.add(zasob);
             }
         }

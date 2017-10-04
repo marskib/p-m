@@ -201,13 +201,71 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/l_RewardChooser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/l_FileChoser"
+            android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:layout_marginRight="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:background="@drawable/border_skib"
+            android:padding="@dimen/maly_odstep"
+            android:layout_marginLeft="@dimen/text_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+                android:layout_marginLeft="@dimen/maly_odstep"
+                android:text="Sposób nagradzania:"/>
+
+
+            <RadioGroup
+                android:id="@+id/rg_nagrody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_Glosowe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Pochwały głosowe   "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+                <RadioButton
+                    android:id="@+id/rb_Oklaski"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:checked="false"
+                    android:textStyle="bold"
+                    android:text="oklaski"
+                    android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_wypelniacz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_gravity="center_horizontal"
+                android:text="Wybrany katalog: "/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/tvPoziom_size"
-            android:layout_below="@+id/l_FileChoser"
+            android:layout_below="@+id/l_RewardChooser"
             android:layout_alignParentBottom="true">
 
             <Button

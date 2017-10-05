@@ -615,6 +615,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //Granie wlasciwe:
         String nazwaObrazka = mRozdzielacz.getAktWybrZasob();  //zawiera rozrzerzenie (.jpg , .bmp , ...)
         String rdzenNazwy = Rozdzielacz.getRemovedExtensionName(nazwaObrazka);
+        rdzenNazwy = Rozdzielacz.usunLastDigitIfAny(rdzenNazwy); //zakladam, ze plik dźwiękowy nie ma cyfry na koncu: pies.jpg,pies1.jpg,pies2.jpg --> pies.ogg
         if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
             //odeggranie z Assets (tam ogg):
             String sciezka_do_pliku_dzwiekowego = "nagrania/" + rdzenNazwy + ".ogg";

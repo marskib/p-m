@@ -169,6 +169,10 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         Toast.makeText(this, "Jeszcze nie zaimplementowane...", Toast.LENGTH_SHORT).show();
     }
 
+    public void bDefaultClick(View v) {
+        toast("bDefaultClick");
+    }
+
 
     private void ostrzegajBrakObrazkow(){
     /* **************************************************************** */

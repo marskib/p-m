@@ -218,33 +218,44 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_marginLeft="@dimen/maly_odstep"
-                android:text="Sposób nagradzania:"/>
+                android:text="Komentarze/Nagrody:"/>
 
 
             <RadioGroup
                 android:id="@+id/rg_nagrody"
+                android:layout_marginTop="@dimen/text_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rb_Glosowe"
+                    android:id="@+id/rb_GlosOklaski"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Pochwały głosowe   "
+                    android:text="komentarz głosowy i oklaski"
                     android:textStyle="bold"
                     android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
 
                 <RadioButton
-                    android:id="@+id/rb_Oklaski"
+                    android:id="@+id/rb_TylkoOklaski"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/text_margin"
                     android:checked="false"
                     android:textStyle="bold"
-                    android:text="oklaski"
+                    android:text="tylko oklaski"
+                    android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
+
+                <RadioButton
+                    android:id="@+id/rb_Cisza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:checked="false"
+                    android:textStyle="bold"
+                    android:text="cisza"
                     android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"/>
 
             </RadioGroup>
@@ -255,23 +266,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/text_margin"
                 android:layout_gravity="center_horizontal"
-                android:text="Wybrany katalog: "/>
+                android:text="   "/>
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/bDefault"
+            android:layout_below="@id/l_RewardChooser"
+            android:layout_marginTop="@dimen/btn_zrodlo_text_rozmiar"
+            android:padding="@dimen/btn_zrodlo_text_rozmiar"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="przywróć ustawienia domyślne"/>
 
         <LinearLayout
+            android:id="@+id/l_ExitButtons"
+            android:layout_below="@+id/bDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/tvPoziom_size"
-            android:layout_below="@+id/l_RewardChooser"
             android:layout_alignParentBottom="true">
 
             <Button
                 android:id="@+id/bInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+                android:paddingBottom="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_weight="5"
                 android:text="INFO"
                 android:onClick="bInfoClick"
@@ -282,6 +305,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="START"
+                android:paddingTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+                android:paddingBottom="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_weight="3"
                 android:drawableLeft="@drawable/tick"
                 android:onClick="bStartClick"

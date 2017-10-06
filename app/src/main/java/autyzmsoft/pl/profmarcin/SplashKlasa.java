@@ -189,8 +189,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         RadioButton rb_SoundPicture = (RadioButton) findViewById(R.id.rb_SoundPicture);
         rb_SoundPicture.setChecked(true);
 
-        teraz pozostale....
-        a potem na ZmienneGlobalne....
+
 
 
 
@@ -207,7 +206,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 przywrocUstDomyslne();
-                toast("Ustawienia domyślne zostały przywrócone....");
+                toast("Przywrócono....");
             }
         });
         dialogBuilder.setNegativeButton("Nie", new Dialog.OnClickListener() {

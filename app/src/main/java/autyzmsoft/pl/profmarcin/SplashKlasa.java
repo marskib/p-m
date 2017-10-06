@@ -217,6 +217,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         });
         return dialogBuilder.create();
     }
+
     public void bDefaultClick(View v) {
         //toast("bDefaultClick");
         Dialog zapytanie;

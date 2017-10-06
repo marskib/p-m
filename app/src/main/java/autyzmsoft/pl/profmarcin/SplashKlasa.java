@@ -7,6 +7,7 @@ package autyzmsoft.pl.profmarcin;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -169,8 +170,59 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         Toast.makeText(this, "Jeszcze nie zaimplementowane...", Toast.LENGTH_SHORT).show();
     }
 
+
+
+
+
+    private void przywrocUstDomyslne() {
+        /**
+         * Przywrócenie domyślnych ustawien aplikacji.
+         */
+        tv_Poziom.setText("4");
+        cb_RoznicujKlawisze.setChecked(true);
+        cb_RoznicujObrazki.setChecked(true);
+        cb_Trening.setChecked(false);
+        rb_NoPictures.setChecked(false);
+        rb_NoSound.setChecked(false);
+
+        //inicjacja, bo tego nie ma w skladowych klasy:
+        RadioButton rb_SoundPicture = (RadioButton) findViewById(R.id.rb_SoundPicture);
+        rb_SoundPicture.setChecked(true);
+
+        teraz pozostale....
+        a potem na ZmienneGlobalne....
+
+
+
+        ZmienneGlobalne.getInstance().POZIOM = 4;
+    }
+
+
+    private Dialog createAlertDialogWithButtons() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Przywracanie ustawień domyślnych");
+        dialogBuilder.setMessage("Czy przywrócić domyślne ustawienia?");
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setPositiveButton("Tak", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                przywrocUstDomyslne();
+                toast("Ustawienia domyślne zostały przywrócone....");
+            }
+        });
+        dialogBuilder.setNegativeButton("Nie", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //nie robimy nic - powrot z dialogu ; toast("You picked negative button");
+            }
+        });
+        return dialogBuilder.create();
+    }
     public void bDefaultClick(View v) {
-        toast("bDefaultClick");
+        //toast("bDefaultClick");
+        Dialog zapytanie;
+        zapytanie = createAlertDialogWithButtons();
+        zapytanie.show();
     }
 
 

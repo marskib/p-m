@@ -129,9 +129,8 @@
                 android:id="@+id/rg_ObrazekDzwiek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="@dimen/maly_odstep"
-                android:layout_alignStart="@+id/cb_RoznicujObrazki"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -161,6 +160,14 @@
                     android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                     android:checked="true"/>
              </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_wypelniacz1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_gravity="center_horizontal"
+                android:text="   "/>
 
         </LinearLayout>
 
@@ -283,7 +290,7 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/tv_wypelniacz"
+                android:id="@+id/tv_wypelniacz2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/text_margin"

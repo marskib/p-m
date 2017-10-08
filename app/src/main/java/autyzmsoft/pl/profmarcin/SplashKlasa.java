@@ -201,7 +201,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle("Przywracanie ustawień domyślnych");
         dialogBuilder.setMessage("Czy przywrócić domyślne ustawienia?");
-        dialogBuilder.setCancelable(true);
+        dialogBuilder.setCancelable(true); //czy można wychodzić przez esc
         dialogBuilder.setPositiveButton("Tak", new Dialog.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {

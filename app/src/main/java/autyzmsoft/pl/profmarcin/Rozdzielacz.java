@@ -1,6 +1,7 @@
 package autyzmsoft.pl.profmarcin;
 
-import android.text.TextUtils;
+import java.io.File;
+import java.util.HashSet;
 
 import static autyzmsoft.pl.profmarcin.MainActivity.listaObrazkowAssets;
 import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
@@ -58,14 +59,41 @@ public class Rozdzielacz {
         wszystkieRozne,     //czy wszystkie generowane klawisze maja miec rozne etykiety/napisy/zasoby
         podpowiedz,         //czy ma byc wysw. podpowiedz na belce okna
         roznicujObrazki;    //czy za każdym kliknieciem pokazywać inny obrazek
+    private int liczbaSlow; //liczba ROZNYCH slow w zbiorze/liscie assets (moze byc inna(!!!) niz liczba obrazkow
 
 
-    public Rozdzielacz(int ileObrazkow, int aktLevel) {
+    public Rozdzielacz(int aktLevel) {
         this.ileObrazkow  = ileObrazkow;
+
+
         this.aktLevel     = aktLevel;
         this.ileKLDoZwoln = this.aktLevel;
-        //Jezeli mamy mniej obrazkow niz klawiszy na ekranie, to niemozliwe jest spelnienie warunku, zeby wszystkie klawisze byly rozna... :
-        if (ileObrazkow<aktLevel) {
+
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == true)  {this.ileObrazkow = myObrazkiSD.size();}
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {this.ileObrazkow = listaObrazkowAssets.length;}
+
+        //Policzenie liczy słow (liczbaSlow !== liczbaObrazków !! ,bo pies.jpg, pies1.jpg, pies2.jpg -> pies ; 3->1 :
+        //Zbior jest po to, zeby dac niepowtarzane wartosci + latwo policzyc:
+        HashSet<String > zbiorSlow = new HashSet<String>();
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {
+            for (String s : listaObrazkowAssets) {
+                s = Rozdzielacz.getRemovedExtensionName(s);
+                s = Rozdzielacz.usunLastDigitIfAny(s);
+                zbiorSlow.add(s);
+            }
+        }
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == true) {
+            for (File s : myObrazkiSD) {
+                String sName = s.getName();
+                sName = Rozdzielacz.getRemovedExtensionName(sName);
+                sName = Rozdzielacz.usunLastDigitIfAny(sName);
+                zbiorSlow.add(sName);
+            }
+        }
+        liczbaSlow = zbiorSlow.size();
+
+        //Jezeli mamy mniej słow w biorze/liscie niz klawiszy na ekranie, to niemozliwe jest spelnienie warunku, zeby wszystkie klawisze byly rozna... :
+        if (liczbaSlow<aktLevel) {
             this.wszystkieRozne = false;
         }
         else {
@@ -89,7 +117,7 @@ public class Rozdzielacz {
 
         //parametr 'eszystkieRozne' musi byc kontrolowany:
         if (wszystkieRozne==true) {
-            if (ileObrazkow<aktLevel) {
+            if (liczbaSlow<aktLevel) {
                 this.wszystkieRozne = false;
             }
             else {
@@ -141,8 +169,7 @@ public class Rozdzielacz {
             //Nazwę wybranego pliku i wyraz na wybranym klawiszu przekazuję na zawnatrz:
             if (i==aktWybrKl) {
                 aktWybrZasob = tButtons[aktWybrKl].getNazwaPliku();
-                aktWybrWyraz = getRemovedExtensionName(aktWybrZasob);
-                aktWybrWyraz = usunLastDigitIfAny(aktWybrWyraz);
+                aktWybrWyraz = usunLastDigitIfAny(getRemovedExtensionName(aktWybrZasob));
             }
         } //for
     }//koniec metody dajZestaw()
@@ -151,8 +178,10 @@ public class Rozdzielacz {
 
 
     private String dajDozwolonyZasob() {
+    /* Losowanie zasobu; jesli ma byc niepowtarzalny - zapewnienie niepowtarzalnosci */
         boolean zKatalogu = ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG;
-        String zasob="";
+        String zasob="";        //np. pies2.jpg
+        String czystaNazwa="";  //tylko czysta nazwa,to co na klawiszu: np. pies2.jpg->pies
         if (wszystkieRozne) {
             //generujemy tak dlugo, az trafimy na taki, ktorego jeszcze nie ma na juz pokazywanych klawiszach:
             do {
@@ -162,7 +191,9 @@ public class Rozdzielacz {
                 } else {
                     zasob = myObrazkiSD.get(rob).getName();
                 }
-            } while (jestJuzTakiNaKlawiszach(zasob));
+                czystaNazwa = getRemovedExtensionName(zasob);
+                czystaNazwa = usunLastDigitIfAny(czystaNazwa);
+            } while (jestJuzTakiNaKlawiszach(czystaNazwa));
         }
         else {
             int rob = (int) (Math.random() * this.ileObrazkow);
@@ -176,40 +207,18 @@ public class Rozdzielacz {
     }  //koniec Metody()
 
 
-
-
-/* oryginal skib skib 2017.08.20
-
-    private String dajDozwolonyZasob() {
-        String zasob="";
-        if (wszystkieRozne) {
-            //generujemy tak dlugo, az trafimy na taki, ktorego jeszcze nie ma na juz pokazywanych klawiszach:
-            do {
-                int rob = (int) (Math.random()*this.ileObrazkow);
-                zasob = listaObrazkowAssets[rob];      //pascal: FOperacje.Memo1.Lines[Random(IleObrazkow)]; UWAGA 'zasob' jest tutaj nazwa pliku z rozszerzeniem,
-            } while (jestJuzTakiNaKlawiszach(zasob));
-        }
-        else {
-            int rob = (int) (Math.random() * this.ileObrazkow);
-            zasob = listaObrazkowAssets[rob];
-        }
-        return zasob;
-    }  //koniec metody
-
-*/
-
-    private boolean jestJuzTakiNaKlawiszach(String zasob) {
+    private boolean jestJuzTakiNaKlawiszach(String cleanNazwa) {
         /**
-         * Sprawdza,czy zasob podany w parametrze jest juz podpiety pod jakis klawisz
-         * UWAGA - porownywanie nastepuje po nazwach plikow (bezpieczniej, jest kwesrtia setImage(), gdzie tylko nazwa pliku *0
+         * Sprawdza,czy czysta nazwa podana w parametrze jest juz podpieta pod jakis klawisz
+         * UWAGA - porownywanie nastepuje po tym, co jest wypisane na klawiszu (nie pies2.jpg, tylko pies)
          * Wykorzystywana, gdy wszystkie generowane klawisze maja byc rozne-> wszystkieRozna==true
          */
-        String nazwaPlikuPodKlawiszem;
+        String nazwaNaKlawiszu;
         int i = 0;
         boolean znalazl = false;
         while ((i<aktLevel)&&(!znalazl)) {
-            nazwaPlikuPodKlawiszem = tButtons[i].getNazwaPliku();
-            if (nazwaPlikuPodKlawiszem.equals(zasob))  //uwaga na stringi - equals
+            nazwaNaKlawiszu = (String) tButtons[i].getText();
+            if (nazwaNaKlawiszu.equals(cleanNazwa))  //uwaga na stringi - equals
               znalazl = true;
             else
               i++;

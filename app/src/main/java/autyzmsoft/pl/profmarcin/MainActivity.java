@@ -469,11 +469,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         lBts = poziom;
 
-        //Tworzenie listy obrazków z Katalogu: ski ski - na razie tentatywnie 2-017.08.19
+        //Tworzenie listy obrazków z Katalogu lub Assets:
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == true) {
             dirObrazkiNaSD = new File(ZmienneGlobalne.getInstance().WYBRANY_KATALOG);
             myObrazkiSD = findObrazki(dirObrazkiNaSD);
-            mRozdzielacz = new Rozdzielacz(myObrazkiSD.size(), lBts);
         };
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {
             //Pobranie listy obrazkow z Assets:
@@ -483,10 +482,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            mRozdzielacz = new Rozdzielacz(listaObrazkowAssets.length, lBts);
         }
-        //************* KONIEC PROBY TENTATYWNEJ **********************
-
+        //Powolanie Rozdzielacza:
+        if (mRozdzielacz != null)
+            mRozdzielacz=null;
+        mRozdzielacz = new Rozdzielacz(lBts);
         mRozdzielacz.ustaw(lBts, wszystkieRozne, roznicujObrazki,false);
 
         wygenerujButtony();

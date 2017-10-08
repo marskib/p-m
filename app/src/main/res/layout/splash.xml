@@ -17,7 +17,7 @@
             android:id="@+id/tv_PoziomOpis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginTop="@dimen/bOK_size"
             android:layout_marginLeft="@dimen/text_margin"
             android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:textStyle="bold"
@@ -308,6 +308,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:onClick="bDefaultClick"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:text="przywróć ustawienia domyślne"/>
 
         <LinearLayout
@@ -327,6 +328,7 @@
                 android:paddingBottom="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_weight="5"
                 android:text="INFO"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:onClick="bInfoClick"
                 />
 
@@ -336,6 +338,7 @@
                 android:layout_height="match_parent"
                 android:text="START"
                 android:textStyle="bold"
+                android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:paddingTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:paddingBottom="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_weight="3"

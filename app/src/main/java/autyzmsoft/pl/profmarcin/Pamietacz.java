@@ -8,7 +8,7 @@ import static autyzmsoft.pl.profmarcin.MainActivity.myObrazkiSD;
 
 /**
  * Created by developer on 2017-08-06.
- * obiekt zapewniajacy wybor 'niepowtarzalnego' obrazka za każdym kliknieciem
+ * obiekt zapewniajacy wybor 'niepowtarzalnego' OBRAZKA za każdym kliknieciem
  * Na wzor obiektu TPamietacz z pascalowej wersji ProfMarcina.
  * Pamiętane sa'Zasob', czyli NAZWY plików z rozszerzeniami
  */

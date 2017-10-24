@@ -29,6 +29,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     CheckBox cb_RoznicujKlawisze;
     CheckBox cb_RoznicujObrazki;
     CheckBox cb_Trening;
+    CheckBox cb_Podp;
     RadioButton rb_NoPictures;
     RadioButton rb_NoSound;
     RadioButton rb_zAssets;
@@ -39,6 +40,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Uwaga - wywoluje sie rowniez po wejsciu z MainActivity przez LongClick na obrazku(!)
         //na caly ekran:
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -63,11 +65,20 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         boolean isCheckedKlawisze = cb_RoznicujKlawisze.isChecked();
         boolean isCheckedObrazki  = cb_RoznicujObrazki.isChecked();
         boolean isCheckedTrening  = cb_Trening.isChecked();
+        boolean isCheckedPodp     = cb_Podp.isChecked();
         ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE  = isCheckedKlawisze;
         ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI = isCheckedObrazki;
         ZmienneGlobalne.getInstance().TRYB_TRENING     = isCheckedTrening;
+        ZmienneGlobalne.getInstance().TRYB_PODP        = isCheckedPodp;
 
-        //Kwestia bez obrazków/bez dźwieku - tutaj trzeba uważać, żeby nie wyszło coś b3ez sensu i nie bylo crashu:
+        //Komentarze/Nagrody:
+        boolean isCheckedCisza  = rb_Cisza.isChecked();
+        boolean isCheckedTylOkl = rb_TylkoOklaski.isChecked();
+        ZmienneGlobalne.getInstance().BEZ_KOMENT    = isCheckedCisza;
+        ZmienneGlobalne.getInstance().TYLKO_OKLASKI = isCheckedTylOkl;
+
+
+        //Kwestia bez obrazków/bez dźwieku - tutaj trzeba uważać, żeby nie wyszło coś bez sensu i nie bylo crashu:
         boolean isCheckedNoPictures = rb_NoPictures.isChecked();
         boolean isCheckedNoSound    = rb_NoSound.isChecked();
         if (!isCheckedNoPictures && !isCheckedNoSound) { //z obrazkiem i dzwiekiem
@@ -77,7 +88,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             if (isCheckedNoPictures) {  //bez obrazkow (ale musimy zapewnic dzwiek no matter what...)
                 ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = true;
                 ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = false;
-            }     else {
+            } else {
                 if (isCheckedNoSound) {  //bez dzwieku (ale musimy zapewnic obrazki no matter what..)
                     ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = false;
                     ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = true;
@@ -101,7 +112,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     /* **************************************************************************************** */
         super.onResume();
 
-        //Ponizszy kod istotny przy konczeniu wyboru katlogu zewnetrznego (ale wywola sie tez na onCreate):
+        //Ponizszy kod istotny przy konczeniu wyboru katalogu zewnetrznego (ale wywola sie tez na onCreate):
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
             String strKatalog = ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
             int liczbaObrazkow = policzObrazki(strKatalog);
@@ -184,15 +195,18 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         cb_RoznicujKlawisze.setChecked(true);
         cb_RoznicujObrazki.setChecked(true);
         cb_Trening.setChecked(false);
+        cb_Podp.setChecked(false);
         rb_NoPictures.setChecked(false);
         rb_NoSound.setChecked(false);
-
         rb_TylkoOklaski.setChecked(false);
         rb_Cisza.setChecked(false);
 
         //inicjacja, bo tego nie ma w skladowych klasy:
         RadioButton rb_SoundPicture = (RadioButton) findViewById(R.id.rb_SoundPicture);
         rb_SoundPicture.setChecked(true);
+        //inicjacja, bo tego nie ma w skladowych klasy:
+        RadioButton rb_GlosOklaski = (RadioButton) findViewById(R.id.rb_GlosOklaski);
+        rb_GlosOklaski.setChecked(true);
 
 
         ZmienneGlobalne.getInstance().POZIOM = 4;
@@ -208,7 +222,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 przywrocUstDomyslne();
-                toast("Przywrócono....");
+                toast("Przywrócono domyślne....");
             }
         });
         dialogBuilder.setNegativeButton("Nie", new Dialog.OnClickListener() {
@@ -340,6 +354,10 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         isChecked = ZmienneGlobalne.getInstance().TRYB_TRENING;
         cb_Trening.setChecked(isChecked);
 
+        cb_Podp = (CheckBox) findViewById(R.id.cb_Podp);
+        isChecked = ZmienneGlobalne.getInstance().TRYB_PODP;
+        cb_Podp.setChecked(isChecked);
+
         rb_NoPictures = (RadioButton) findViewById(R.id.rb_noPicture);
         isChecked     = ZmienneGlobalne.getInstance().BEZ_OBRAZKOW;
         rb_NoPictures.setChecked(isChecked);
@@ -383,5 +401,14 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             sciezka.setText(strLiczba+" szt.");
         }
     } //koniec Metody()
+
+    public void cbTreningPodpClicked(View v) {
+        //Kontrolki in question must be mutually exclusive
+        if (v==cb_Trening) {
+            cb_Podp.setChecked(false);
+        } else {
+            cb_Trening.setChecked(false);
+        }
+    }
 
 }

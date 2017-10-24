@@ -23,10 +23,11 @@ public class ZmienneGlobalne extends Application {
     public boolean BEZ_OBRAZKOW;         //nie pokazywac obrazkow
     public boolean BEZ_DZWIEKU;          //nie odgrywać słów
 
-    public boolean BEZ_KOMENT;
-    public boolean TYLKO_OKLASKI;
+    public boolean BEZ_KOMENT;          //cisza - Bez Komentarza po wybraniu klawisza
+    public boolean TYLKO_OKLASKI;       //patrz wyżej
 
     public boolean TRYB_TRENING;         //czy pracujemy w trybie treningowym (pokazujac cwiczenie od razu wyswietlamy nazwe pod obrazkiem)
+    public boolean TRYB_PODP;           //to samo co TRYB_TTRENING, tylko nazwa pod obrazkiem duzo mniejszymi literami i nie czerwona
     public boolean ODMOWA_DOST;         //na etapie instalacji/1-go uruchomienia user odmowil dostepu do kart(y); dotyczy androida 6 i więcej
 
     public boolean nieGrajJestemW105;  //robocza na czas developmentu
@@ -42,7 +43,7 @@ public class ZmienneGlobalne extends Application {
     //konstruktor tego singletona + ustawienia poczatkowe aplikacji:
     private ZmienneGlobalne() {
 
-        nieGrajJestemW105 = false; //wyrzucić po skonczonym developmencie
+        nieGrajJestemW105 = true; //wyrzucić po skonczonym developmencie
 
 
         PELNA_WERSJA = true;
@@ -58,6 +59,7 @@ public class ZmienneGlobalne extends Application {
 
 
         TRYB_TRENING = false;
+        TRYB_PODP    = false;
         ODMOWA_DOST  = false;           //w wersja <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
 
         ZRODLEM_JEST_KATALOG = false;  //startujemy ze zrodlem w Assets

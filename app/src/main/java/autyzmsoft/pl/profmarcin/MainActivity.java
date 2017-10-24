@@ -10,6 +10,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -35,6 +36,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import static android.graphics.Color.BLACK;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
@@ -246,7 +249,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
      *****************************************************************************/
 
         String napisNaKl = (String) ((Button) view).getText();
+        //Trafiliśmy na właściwy klawisz:
         if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to :
+            szybkiDing();
             //1.Wyłaczmy wszystkie listenery (bo efekty uboczne jesli klikanie po 'zwyciestwie'),
             //2.Gasimy i deaktywujemy wszystkie inne, oprócz kliknietego (dobry efekt wizualny):
             //3.Odgrywamy 'aplauz'
@@ -272,7 +277,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             //koniec diagnostyki
 
 
-            //klawisz na pojscie dale j lekkim opoznieniem (dydaktyka):
+            //klawisz na pojscie dale z lekkim opoznieniem (dydaktyka):
             int opozniacz1 = 2500;//1500;  //milisekundy
             Handler handler1 = new Handler();
             handler1.postDelayed(new Runnable() {
@@ -282,27 +287,35 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     bAgain.setVisibility(View.VISIBLE);
                 }
             }, opozniacz1);
-            odegrajZAssets("nagrania/komentarze/ding.ogg",0);
-            //odegrajZAssets("nagrania/komentarze/pozytywy/female/01-brawo-brawo.m4a",400);
+
             //Odegranie losowej pochwały:
-            String komcie_path = "nagrania/komentarze/pozytywy/female";
-            //Facet, czy kobieta:
-            Random rand = new Random();
-            int n = rand.nextInt(3); // Gives n such that 0 <= n < 3
-            if (n==2) komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 2 razy czesciej
-            //teraz konkretny (losowy) plik:
-            String doZagrania = dajLosowyPlik(komcie_path);
-            odegrajZAssets(komcie_path+"/"+doZagrania,400);
-            odegrajZAssets("nagrania/komentarze/oklaski.ogg",2900);
-        } //if
+
+            if (ZmienneGlobalne.getInstance().BEZ_KOMENT) return;  //jak ma byc cisza, to wypad...
+
+            if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {
+                String komcie_path = "nagrania/komentarze/pozytywy/female";
+                //Facet, czy kobieta:
+                Random rand = new Random();
+                int n = rand.nextInt(3); // Gives n such that 0 <= n < 3
+                if (n == 2)
+                    komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 2 razy czesciej
+                //teraz konkretny (losowy) plik:
+                String doZagrania = dajLosowyPlik(komcie_path);
+                odegrajZAssets(komcie_path + "/" + doZagrania, 400);
+                odegrajZAssets("nagrania/komentarze/oklaski.ogg",2900);
+            }
+            else odegrajZAssets("nagrania/komentarze/oklaski.ogg",400);
+        } //if trafiony klawisz
         else {
             odegrajZAssets("nagrania/komentarze/zle.ogg",0);
-            odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a",320);
+            if (!ZmienneGlobalne.getInstance().BEZ_KOMENT) {
+                odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a",320);  //"y-y" męski glos dezaprobaty
+            }
         }
     } //koniec Metody()
 
     String dajLosowyPlik(String aktywa) {
-        //Zwraca losowy plik z podanego katalogu w Assets; używana do gebnerowania losowej pochwały/nagany
+        //Zwraca losowy plik z podanego katalogu w Assets; używana do generowania losowej pochwały/nagany
 
         String[] listaKomciow = null;
         AssetManager mgr = getAssets();
@@ -331,7 +344,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     // Odegranie dzwieku umieszczonego w Assets (w katalogu 'nagrania'):
     /* ***************************************************************** */
 
-    if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
+    if ( ZmienneGlobalne.getInstance().nieGrajJestemW105 ) return; //na czas developmentu....
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -361,6 +374,34 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     } //koniec Metody()
 
 
+    private void szybkiDing() {
+        //Odchudzona wersja OdegrajZAssets() - zeby bez zbednych opoznien odegral dinga po porawnym klawiszu - lepszy efekt
+
+        if ( ZmienneGlobalne.getInstance().nieGrajJestemW105 ) return; //na czas developmentu....
+
+        try {
+            if (mp != null) {
+                mp.release();
+                mp = new MediaPlayer();
+            } else {
+                mp = new MediaPlayer();
+            }
+            //final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
+            AssetFileDescriptor descriptor = getAssets().openFd("nagrania/komentarze/ding.ogg");
+            mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+            mp.prepare();
+            mp.setVolume(1f, 1f);
+            mp.setLooping(false);
+            mp.start();
+            descriptor.close();
+            //Toast.makeText(getApplicationContext(),"Odgrywam: "+sciezka_do_pliku,Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            //Toast.makeText(getApplicationContext(), "Nie można odegrać pliku z dźwiękiem.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void setCurrentImage() {
     /* ************************************ */
@@ -379,6 +420,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         tvWyraz.setText(""); //nazwa pod obrazkiem - najpierw czyscimy stara nazwe
         //W trybie treningowym od razu pokazujemy czerwopny text pod obrazkiem:
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
+            ustawWygladWyrazu(tvWyraz, true);
+            tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
+            tvWyraz.setVisibility(View.VISIBLE);
+        }
+        if (ZmienneGlobalne.getInstance().TRYB_PODP) {
+            ustawWygladWyrazu(tvWyraz, false);
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setVisibility(View.VISIBLE);
         }
@@ -415,6 +462,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     public void onClickbAgain(View v) {
         tvWyraz.setVisibility(View.INVISIBLE);
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
+            ustawWygladWyrazu(tvWyraz, true);
+            tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
+            tvWyraz.setVisibility(View.VISIBLE);
+        }
+        if (ZmienneGlobalne.getInstance().TRYB_PODP) {
+            ustawWygladWyrazu(tvWyraz, false);
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
             tvWyraz.setVisibility(View.VISIBLE);
         }
@@ -429,6 +482,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mRozdzielacz.wymieszajNapisy();
         //Toast.makeText(MainActivity.this, Integer.toString(mRozdzielacz.getAktWybrKl()), Toast.LENGTH_SHORT).show();
     } //koniec Metody()
+
+    private void ustawWygladWyrazu(TextView tvWyraz, boolean Trening) {
+        //Ustawia parametry 'estetyczne' wyrazu pod obrazkiem
+        //w zaleznosci, czy trening, czy podpowiedz
+        if (Trening) {
+            tvWyraz.setTextColor(Color.RED);
+            tvWyraz.setTypeface(null, Typeface.BOLD);
+        } else { //tryp Podpowiedz
+            tvWyraz.setTextColor(BLACK);
+            tvWyraz.setTypeface(null, Typeface.NORMAL);
+        }
+    }
 
 
     @Override

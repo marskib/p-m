@@ -102,7 +102,20 @@
             android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:textStyle="bold"
             android:layout_below="@id/cb_RoznicujObrazki"
-            android:text=" tryb Treningowy" />
+            android:text=" tryb Treningowy"
+            android:onClick="cbTreningPodpClicked"/>
+
+        <CheckBox
+            android:id="@+id/cb_Podp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+            android:textStyle="bold"
+            android:layout_above="@+id/l_Zobrazowanie"
+            android:layout_toEndOf="@+id/cb_Trening"
+            android:layout_marginLeft="40dp"
+            android:text=" tryb z Podpowiedzią"
+            android:onClick="cbTreningPodpClicked"/>
 
 
         <LinearLayout
@@ -346,6 +359,8 @@
                 android:onClick="bStartClick"
                 />
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

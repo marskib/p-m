@@ -19,8 +19,13 @@ public class ZmienneGlobalne extends Application {
     public int     POZIOM;               //Poziom trudnosci (liczba pokazywanych klawiszy)
     public boolean WSZYSTKIE_ROZNE;      //Wszystkie klawisze(napisy) maja byc rożne
     public boolean ROZNICUJ_OBRAZKI;     //Za każdym razem pokazywany inny obrazek
+
     public boolean BEZ_OBRAZKOW;         //nie pokazywac obrazkow
     public boolean BEZ_DZWIEKU;          //nie odgrywać słów
+
+    public boolean BEZ_KOMENT;
+    public boolean TYLKO_OKLASKI;
+
     public boolean TRYB_TRENING;         //czy pracujemy w trybie treningowym (pokazujac cwiczenie od razu wyswietlamy nazwe pod obrazkiem)
     public boolean ODMOWA_DOST;         //na etapie instalacji/1-go uruchomienia user odmowil dostepu do kart(y); dotyczy androida 6 i więcej
 
@@ -37,15 +42,21 @@ public class ZmienneGlobalne extends Application {
     //konstruktor tego singletona + ustawienia poczatkowe aplikacji:
     private ZmienneGlobalne() {
 
-        nieGrajJestemW105 = true; //wyrzucić po skonczonym developmencie
+        nieGrajJestemW105 = false; //wyrzucić po skonczonym developmencie
 
 
         PELNA_WERSJA = true;
         POZIOM       = 4;
         WSZYSTKIE_ROZNE  = true;
         ROZNICUJ_OBRAZKI = true;
+
         BEZ_OBRAZKOW = false;
         BEZ_DZWIEKU  = false;
+
+        BEZ_KOMENT    = false;
+        TYLKO_OKLASKI = false;
+
+
         TRYB_TRENING = false;
         ODMOWA_DOST  = false;           //w wersja <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
 

@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
                 android:layout_marginLeft="@dimen/maly_odstep"
-                android:text="Zobrazowanie:"/>
+                android:text="Zobrazowanie i dźwięk:"/>
 
 
             <RadioGroup

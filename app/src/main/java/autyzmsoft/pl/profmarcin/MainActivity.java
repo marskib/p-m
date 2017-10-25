@@ -10,7 +10,6 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -78,6 +77,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    private float tvWyrazSize;  //rozmiar wyrazu pod obrazkiem
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
     /* Wywolywana po udzieleniu/odmowie zezwolenia na dostęp do karty (od API 23 i wyzej) */
@@ -183,7 +184,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         txSize = (float) (btH / 2.0);
 
         //Troche efektow ubocznych - wymiarowanie kontrolek pod obrazkiem i inne:
-        float tvWyrazSize = height/10; //doswiadczalnie - duży i wyraźny
+        //doswiadczalnie - duży i wyraźny
+        tvWyrazSize = height/10;
         tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize);
         //strzalka na srodku bDalej - doswiadczalnie:
         int szerbDalej = (int) (width/2.2);
@@ -264,9 +266,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }
             //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
             tvWyraz.setVisibility(View.VISIBLE);
-
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
-            tvWyraz.setTypeface(null, Typeface.BOLD);
+            ustawWygladWyrazu(tvWyraz, true);  //tłusty czerwony
 
             // ski ski diagnostyka
        /*     String strDiag = String.valueOf(ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
@@ -485,13 +486,17 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     private void ustawWygladWyrazu(TextView tvWyraz, boolean Trening) {
         //Ustawia parametry 'estetyczne' wyrazu pod obrazkiem
-        //w zaleznosci, czy trening, czy podpowiedz
-        if (Trening) {
-            tvWyraz.setTextColor(Color.RED);
+        //w zaleznosci, czy trening lub zwykly tryb, czy podpowiedz
+        if (Trening) { //tryb Zwykly lub Trening - tłusty czerwony
+            //int kolor = (int) getResources().getColor(R.color.colorTreningSkib); - deprecated
+            int kolor = ContextCompat.getColor(this, R.color.colorTreningSkib);
+            tvWyraz.setTextColor(kolor);
             tvWyraz.setTypeface(null, Typeface.BOLD);
-        } else { //tryp Podpowiedz
+            tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize);
+        } else { //tryp Podpowiedz - mały, chudy, czarny
             tvWyraz.setTextColor(BLACK);
             tvWyraz.setTypeface(null, Typeface.NORMAL);
+            tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
         }
     }
 

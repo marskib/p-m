@@ -43,7 +43,7 @@ public class ZmienneGlobalne extends Application {
     //konstruktor tego singletona + ustawienia poczatkowe aplikacji:
     private ZmienneGlobalne() {
 
-        nieGrajJestemW105 = true; //wyrzucić po skonczonym developmencie
+        nieGrajJestemW105 = false; //wyrzucić po skonczonym developmencie
 
 
         PELNA_WERSJA = true;

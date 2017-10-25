@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorGray">#ADADAD</color>
+
+    <color name="colorTreningSkib">@android:color/holo_red_dark</color>
+
+
 </resources>

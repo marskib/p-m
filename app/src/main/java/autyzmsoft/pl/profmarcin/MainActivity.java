@@ -37,8 +37,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.graphics.Color.BLACK;
-
 
 public class MainActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -266,7 +264,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 }
             }
             //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
-            int opozniacz = 500; //wyraz z lekiim opoznieniem - efekt lepszy
+            int opozniacz = 600; //wyraz z lekiim opoznieniem - efekt lepszy
             Handler handler0 = new Handler();
             handler0.postDelayed(new Runnable() {
                 public void run() {
@@ -496,7 +494,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             tvWyraz.setTypeface(null, Typeface.NORMAL);
             tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
         }
-    }
+    }  //koniec Metody()
 
 
     @Override

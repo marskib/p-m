@@ -10,6 +10,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -265,18 +266,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 }
             }
             //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
-            tvWyraz.setVisibility(View.VISIBLE);
-            tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
-            ustawWygladWyrazu(tvWyraz, true);  //tłusty czerwony
-
-            // ski ski diagnostyka
-       /*     String strDiag = String.valueOf(ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
-            strDiag = strDiag+" "+" "+mRozdzielacz.getIleObrazkow()+" "+ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
-            tvWyraz.setText(strDiag);
-            tvWyraz.setTextSize(18);
-            tvWyraz.setTypeface(null,Typeface.NORMAL);*/
-            //koniec diagnostyki
-
+            int opozniacz = 500; //wyraz z lekiim opoznieniem - efekt lepszy
+            Handler handler0 = new Handler();
+            handler0.postDelayed(new Runnable() {
+                public void run() {
+                   ustawWygladWyrazu(tvWyraz, true);  //tłusty czerwony
+                   tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
+                   tvWyraz.setVisibility(View.VISIBLE);
+                }
+            },opozniacz);
 
             //klawisz na pojscie dale z lekkim opoznieniem (dydaktyka):
             int opozniacz1 = 2500;//1500;  //milisekundy
@@ -419,7 +417,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //--------------------------------//
 
         tvWyraz.setText(""); //nazwa pod obrazkiem - najpierw czyscimy stara nazwe
-        //W trybie treningowym od razu pokazujemy czerwopny text pod obrazkiem:
+        //Dodatkowo, w trybie treningowym lu podpowiedzi od razu pokazujemy czerwopny text pod obrazkiem:
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
             ustawWygladWyrazu(tvWyraz, true);
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
@@ -493,8 +491,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             tvWyraz.setTextColor(kolor);
             tvWyraz.setTypeface(null, Typeface.BOLD);
             tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize);
-        } else { //tryp Podpowiedz - mały, chudy, czarny
-            tvWyraz.setTextColor(BLACK);
+        } else { //tryp Podpowiedz - mały, chudy, szary
+            tvWyraz.setTextColor(Color.GRAY);
             tvWyraz.setTypeface(null, Typeface.NORMAL);
             tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
         }

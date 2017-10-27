@@ -583,6 +583,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             l_obrazek_i_reszta.setOnLongClickListener(null);
             l_obrazek_i_reszta.setOnClickListener(null);
         }
+
+        //Na lenovo 'gubi; BOLD'a, wiec 'łatam' tę dziurę:
+        for (int i = 0; i < lBts; i++) {
+            tButtons[i].setTypeface(null, Typeface.BOLD);
+        }
     } //koniec Metody()
 
 

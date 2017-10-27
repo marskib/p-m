@@ -252,7 +252,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         String napisNaKl = (String) ((Button) view).getText();
         //Trafiliśmy na właściwy klawisz:
         if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to :
-            szybkiDing();
+            if (!ZmienneGlobalne.getInstance().CISZA)
+                szybkiDing();
             //1.Wyłaczmy wszystkie listenery (bo efekty uboczne jesli klikanie po 'zwyciestwie'),
             //2.Gasimy i deaktywujemy wszystkie inne, oprócz kliknietego (dobry efekt wizualny):
             //3.Odgrywamy 'aplauz'
@@ -287,9 +288,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
             //Odegranie losowej pochwały:
 
-            if (ZmienneGlobalne.getInstance().BEZ_KOMENT) return;  //jak ma byc cisza, to wypad...
+            if (ZmienneGlobalne.getInstance().BEZ_KOMENT||ZmienneGlobalne.getInstance().CISZA) return;  //jak ma byc cisza lub bez koment. - to wypad...
 
-            if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {
+            if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {  //jest pochwala
                 String komcie_path = "nagrania/komentarze/pozytywy/female";
                 //Facet, czy kobieta:
                 Random rand = new Random();
@@ -298,12 +299,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 2 razy czesciej
                 //teraz konkretny (losowy) plik:
                 String doZagrania = dajLosowyPlik(komcie_path);
-                odegrajZAssets(komcie_path + "/" + doZagrania, 400);
-                odegrajZAssets("nagrania/komentarze/oklaski.ogg",2900);
+                odegrajZAssets(komcie_path + "/" + doZagrania, 400);    //pochwala
+                odegrajZAssets("nagrania/komentarze/oklaski.ogg",2900); //oklaski
             }
             else odegrajZAssets("nagrania/komentarze/oklaski.ogg",400);
         } //if trafiony klawisz
-        else {
+        else { //zle, wiec 'brrr' na klawiszu + ewentualny koment:
+
+            if (ZmienneGlobalne.getInstance().CISZA) return;
+
             odegrajZAssets("nagrania/komentarze/zle.ogg",0);
             if (!ZmienneGlobalne.getInstance().BEZ_KOMENT) {
                 odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a",320);  //"y-y" męski glos dezaprobaty
@@ -490,7 +494,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             tvWyraz.setTypeface(null, Typeface.BOLD);
             tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize);
         } else { //tryp Podpowiedz - mały, chudy, szary
-            tvWyraz.setTextColor(Color.GRAY);
+            tvWyraz.setTextColor(Color.LTGRAY);
             tvWyraz.setTypeface(null, Typeface.NORMAL);
             tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
         }

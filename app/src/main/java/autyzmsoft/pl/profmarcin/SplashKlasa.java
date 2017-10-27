@@ -36,6 +36,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     RadioButton rb_zKatalogu;
     RadioButton rb_NoComments;
     RadioButton rb_TylkoOklaski;
+    RadioButton rb_Cisza;
     TextView sciezka; //informacyjny teksci pokazujacy biezacy katalog i/lub liczbe obrazkow
 
     @Override
@@ -72,10 +73,12 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         ZmienneGlobalne.getInstance().TRYB_PODP        = isCheckedPodp;
 
         //Komentarze/Nagrody:
-        boolean isCheckedCisza  = rb_NoComments.isChecked();
-        boolean isCheckedTylOkl = rb_TylkoOklaski.isChecked();
-        ZmienneGlobalne.getInstance().BEZ_KOMENT    = isCheckedCisza;
+        boolean isCheckedNoComments  = rb_NoComments.isChecked();
+        boolean isCheckedTylOkl      = rb_TylkoOklaski.isChecked();
+        boolean isCheckedCisza       = rb_Cisza.isChecked();
+        ZmienneGlobalne.getInstance().BEZ_KOMENT    = isCheckedNoComments;
         ZmienneGlobalne.getInstance().TYLKO_OKLASKI = isCheckedTylOkl;
+        ZmienneGlobalne.getInstance().CISZA         = isCheckedCisza;
 
 
         //Kwestia bez obrazków/bez dźwieku - tutaj trzeba uważać, żeby nie wyszło coś bez sensu i nie bylo crashu:
@@ -374,8 +377,9 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         isChecked = ZmienneGlobalne.getInstance().TYLKO_OKLASKI;
         rb_TylkoOklaski.setChecked(isChecked);
 
-
-
+        rb_Cisza = (RadioButton) findViewById(R.id.rb_Cisza);
+        isChecked = ZmienneGlobalne.getInstance().CISZA;
+        rb_Cisza.setChecked(isChecked);
 
 
         rb_zAssets = (RadioButton) findViewById(R.id.rb_zAssets);

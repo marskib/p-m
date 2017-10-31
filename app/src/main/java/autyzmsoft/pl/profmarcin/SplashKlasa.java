@@ -81,7 +81,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         ZmienneGlobalne.getInstance().CISZA         = sharedPreferences.getBoolean("CISZA", false);
 
 
-        POnizej jeszcze nie ruszane.... 2017.10.31
+        //POnizej jeszcze nie ruszane.... 2017.10.31
 
         //Gdyby pomiedzy uruchomieniami zlikwidowano wybrany katalog, przelaczamy sie na zrodlo z zasobow aplikacji:
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {

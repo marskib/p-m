@@ -52,52 +52,10 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        //Pobranie zapisanych ustawien->ZmienneGlobalne, (if any) gdy startujemy aplikacje :
-        if (savedInstanceState == null) { //ten warunek oznacza, ze to nie obrot, tylko startujemy odpoczatku
-            pobierzSharedPreferences();
-        }
         ustawKontrolki(); //kontrolki<-ZmienneGlobalne
     }  //koniec Metody()
 
 
-    private void pobierzSharedPreferences() {
-    /* ******************************************************** */
-    /* Zapisane ustawienia wczytuwane sa do ZmiennychGlobalnych */
-    /* ******************************************************** */
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); //na zapisanie ustawien na next. sesję
-        //Rozpoczynamy aplikacje od wyswietleni 'startowego' zestawu (korzystam z ewentualnych ustawien z ostatniej sesji) :
-
-        ZmienneGlobalne.getInstance().POZIOM           =  sharedPreferences.getInt("POZIOM",  4); //2-gi parametr na wypadek, gdyby w SharedPref. nic jeszcze nie bylo
-        ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE  = sharedPreferences.getBoolean("WSZYSTKIE_ROZNE",true);
-        ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI = sharedPreferences.getBoolean("ROZNICUJ_OBRAZKI",true);
-
-
-        ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = sharedPreferences.getBoolean("BEZ_OBRAZKOW",false);
-        ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = sharedPreferences.getBoolean("BEZ_DZWIEKU", false);
-
-        ZmienneGlobalne.getInstance().BEZ_KOMENT    = sharedPreferences.getBoolean("BEZ_KOMENT",false);
-        ZmienneGlobalne.getInstance().TYLKO_OKLASKI = sharedPreferences.getBoolean("TYLKO_OKLASKI", false);
-        ZmienneGlobalne.getInstance().CISZA         = sharedPreferences.getBoolean("CISZA", false);
-
-
-        //POnizej jeszcze nie ruszane.... 2017.10.31
-
-        //Gdyby pomiedzy uruchomieniami zlikwidowano wybrany katalog, przelaczamy sie na zrodlo z zasobow aplikacji:
-        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
-            String katalog = ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
-            File file = new File(katalog);
-            if (!file.exists()) {
-                ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
-            }
-            //gdyby nie zlikwidowano katalogu, ale tylko 'wycieto' obrazki - przelaczenie na Zasoby applikacji:
-            else {
-                if (policzObrazki(katalog) == 0) {
-                    ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
-                }
-            }
-        }
-    } //koniec Metody()
 
 
     @Override
@@ -161,6 +119,8 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     /* Wywolywana rowniez przy starcie aplikacji(!)                                             */
     /* **************************************************************************************** */
         super.onResume();
+
+
 
         //Ponizszy kod istotny przy konczeniu wyboru katalogu zewnetrznego (ale wywola sie tez na onCreate):
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
@@ -234,9 +194,6 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     }
 
 
-
-
-
     private void przywrocUstDomyslne() {
         /**
          * Przywrócenie domyślnych ustawien aplikacji.
@@ -257,7 +214,6 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         //inicjacja, bo tego nie ma w skladowych klasy:
         RadioButton rb_GlosOklaski = (RadioButton) findViewById(R.id.rb_GlosOklaski);
         rb_GlosOklaski.setChecked(true);
-
 
         ZmienneGlobalne.getInstance().POZIOM = 4;
     }
@@ -367,7 +323,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     } //koniec Metody()
 
 
-    private int policzObrazki(String strKatalog) {
+    protected static int policzObrazki(String strKatalog) {
     /* ******************************************************** */
     /* Liczy obrazki (=pliki .jpg .bmp .png) w zadanym katalogu */
     /* zwraca po prostu rozmiar kolekcji                        */
@@ -464,7 +420,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
     @Override
     protected void onDestroy() {
-	/* Zapisanie ustawienia w SharedPreferences na przyszła sesję */
+  	/* Zapisanie ustawienia w SharedPreferences na przyszła sesję */
         super.onDestroy();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); //na zapisanie ustawien na next. sesję
         SharedPreferences.Editor edit = sharedPreferences.edit();

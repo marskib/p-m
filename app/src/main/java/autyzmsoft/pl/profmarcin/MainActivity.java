@@ -140,7 +140,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //Jezeli starujemy, to nie grac slowa, bo glupio.. :
         if (savedInstanceState == null) {
             //licznikWykonan = 0;     //startujemy licznik wykonan dla onResume
-            nieGraj = true;  //dajemy znac, zeby nie gral slowa, bo jestesmy po obrocie ekranu(i glupio...)
+            nieGraj = true;           //dajemy znac, zeby nie gral slowa, bo jestesmy po obrocie ekranu(i glupio...)
         }
 
         /* 2017.08.-09 - ski ski - porzejscie na onResume:
@@ -533,6 +533,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         super.onResume();
         //Pokazujemy zupelnie nowe cwiczenie z paramatrami ustawionymi na Zmiennych Glob. (np. poprzez splashScreena Ustawienia):
         zdejmijButtony();
+        //3 zmienne ponizej potrzebne do Rozdzielacz:
         final int poziom = ZmienneGlobalne.getInstance().POZIOM;
         final boolean wszystkieRozne  = ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE;
         final boolean roznicujObrazki = ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI;
@@ -557,7 +558,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         if (mRozdzielacz != null)
             mRozdzielacz=null;
         mRozdzielacz = new Rozdzielacz(lBts);
-        mRozdzielacz.ustaw(lBts, wszystkieRozne, roznicujObrazki,false);
+        mRozdzielacz.ustaw(lBts, wszystkieRozne, roznicujObrazki);
 
         wygenerujButtony();
         mRozdzielacz.dajZestaw();

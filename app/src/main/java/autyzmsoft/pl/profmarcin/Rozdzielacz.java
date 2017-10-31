@@ -109,7 +109,7 @@ public class Rozdzielacz {
         mPamietacz = new Pamietacz();  //stworzenie Pamietacza do pamietania przydzielonych obrazkow
     } //koniec Konstruktora()
 
-    public void ustaw(int aktLevel, boolean wszystkieRozne, boolean roznicujObrazki, boolean podpowiedz) {
+    public void ustaw(int aktLevel, boolean wszystkieRozne, boolean roznicujObrazki) {
         /**
          * Ustawienie Rozdzielacza wg tego co na FParametry
          */
@@ -128,7 +128,6 @@ public class Rozdzielacz {
             this.wszystkieRozne = false;
         //koniec kontroli parametru
         this.roznicujObrazki = roznicujObrazki;
-        this.podpowiedz      = podpowiedz;
     } //koniec metody
 
 

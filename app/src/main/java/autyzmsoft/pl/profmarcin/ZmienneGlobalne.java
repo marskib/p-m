@@ -61,11 +61,12 @@ public class ZmienneGlobalne extends Application {
 
         TRYB_TRENING = false;
         TRYB_PODP    = false;
-        ODMOWA_DOST  = false;           //w wersja <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
+        ODMOWA_DOST  = false;           //w wersji Androida <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
 
         ZRODLEM_JEST_KATALOG = false;  //startujemy ze zrodlem w Assets
         ZMIENIONO_ZRODLO = true;       //inicjacyjnie na true, zeby po uruchomieniu apki wykonala sie onResume() w calosci
         WYBRANY_KATALOG = "*^5%dummy"; //"nic jeszcze nie wybrano" - lepiej to niz null...
+
         DLA_KRZYSKA = false;
     } //konstruktor
 }

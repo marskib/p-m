@@ -10,7 +10,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,8 +51,53 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-        ustawKontrolki();
+
+        //Pobranie zapisanych ustawien->ZmienneGlobalne, (if any) gdy startujemy aplikacje :
+        if (savedInstanceState == null) { //ten warunek oznacza, ze to nie obrot, tylko startujemy odpoczatku
+            pobierzSharedPreferences();
+        }
+        ustawKontrolki(); //kontrolki<-ZmienneGlobalne
     }  //koniec Metody()
+
+
+    private void pobierzSharedPreferences() {
+    /* ******************************************************** */
+    /* Zapisane ustawienia wczytuwane sa do ZmiennychGlobalnych */
+    /* ******************************************************** */
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); //na zapisanie ustawien na next. sesję
+        //Rozpoczynamy aplikacje od wyswietleni 'startowego' zestawu (korzystam z ewentualnych ustawien z ostatniej sesji) :
+
+        ZmienneGlobalne.getInstance().POZIOM           =  sharedPreferences.getInt("POZIOM",  4); //2-gi parametr na wypadek, gdyby w SharedPref. nic jeszcze nie bylo
+        ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE  = sharedPreferences.getBoolean("WSZYSTKIE_ROZNE",true);
+        ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI = sharedPreferences.getBoolean("ROZNICUJ_OBRAZKI",true);
+
+
+        ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = sharedPreferences.getBoolean("BEZ_OBRAZKOW",false);
+        ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = sharedPreferences.getBoolean("BEZ_DZWIEKU", false);
+
+        ZmienneGlobalne.getInstance().BEZ_KOMENT    = sharedPreferences.getBoolean("BEZ_KOMENT",false);
+        ZmienneGlobalne.getInstance().TYLKO_OKLASKI = sharedPreferences.getBoolean("TYLKO_OKLASKI", false);
+        ZmienneGlobalne.getInstance().CISZA         = sharedPreferences.getBoolean("CISZA", false);
+
+
+        POnizej jeszcze nie ruszane.... 2017.10.31
+
+        //Gdyby pomiedzy uruchomieniami zlikwidowano wybrany katalog, przelaczamy sie na zrodlo z zasobow aplikacji:
+        if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
+            String katalog = ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
+            File file = new File(katalog);
+            if (!file.exists()) {
+                ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
+            }
+            //gdyby nie zlikwidowano katalogu, ale tylko 'wycieto' obrazki - przelaczenie na Zasoby applikacji:
+            else {
+                if (policzObrazki(katalog) == 0) {
+                    ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
+                }
+            }
+        }
+    } //koniec Metody()
 
 
     @Override
@@ -414,5 +461,33 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             cb_Trening.setChecked(false);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+	/* Zapisanie ustawienia w SharedPreferences na przyszła sesję */
+        super.onDestroy();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); //na zapisanie ustawien na next. sesję
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+
+        edit.putInt("POZIOM", ZmienneGlobalne.getInstance().POZIOM);
+        edit.putBoolean("WSZYSTKIE_ROZNE", ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE);
+        edit.putBoolean("ROZNICUJ_OBRAZKI", ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI);
+
+        edit.putBoolean("BEZ_OBRAZKOW", ZmienneGlobalne.getInstance().BEZ_OBRAZKOW);
+        edit.putBoolean("BEZ_DZWIEKU", ZmienneGlobalne.getInstance().BEZ_DZWIEKU);
+
+        edit.putBoolean("BEZ_KOMENT", ZmienneGlobalne.getInstance().BEZ_KOMENT);
+        edit.putBoolean("TYLKO_OKLASKI", ZmienneGlobalne.getInstance().TYLKO_OKLASKI);
+        edit.putBoolean("CISZA", ZmienneGlobalne.getInstance().CISZA);
+
+        edit.putBoolean("TRYB_TRENING", ZmienneGlobalne.getInstance().TRYB_TRENING);
+        edit.putBoolean("TRYB_PODP", ZmienneGlobalne.getInstance().TRYB_PODP);
+        edit.putBoolean("ODMOWA_DOST", ZmienneGlobalne.getInstance().ODMOWA_DOST);
+
+        edit.putBoolean("ZRODLEM_JEST_KATALOG", ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);
+        edit.putString("WYBRANY_KATALOG", ZmienneGlobalne.getInstance().WYBRANY_KATALOG);
+
+        edit.apply();
+    } //onDestroy
 
 }

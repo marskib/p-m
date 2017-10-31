@@ -285,7 +285,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         if (arg0==rb_zAssets) {
             sciezka.setText(""); //kosmetyka - znika z ekranu
             //jesli kliknieto na "z zasobow aplikacji", to przełączam się na to nowe źródło:
-            if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG==true) {
+            if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
                 ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
                 ZmienneGlobalne.getInstance().ZMIENIONO_ZRODLO     = true;
             }
@@ -323,7 +323,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     } //koniec Metody()
 
 
-    protected static int policzObrazki(String strKatalog) {
+    static int policzObrazki(String strKatalog) {
     /* ******************************************************** */
     /* Liczy obrazki (=pliki .jpg .bmp .png) w zadanym katalogu */
     /* zwraca po prostu rozmiar kolekcji                        */

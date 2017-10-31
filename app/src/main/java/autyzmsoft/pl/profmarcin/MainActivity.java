@@ -77,6 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private float tvWyrazSize;  //rozmiar wyrazu pod obrazkiem
+    private double screenInches;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -153,16 +154,17 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
     private void oszacujWysokoscButtonow_i_Tekstu() {
+    /* ******************************************************************************************************************************** */
     /* Na podstawie liczby buttonow (=wybranego poziomu trudnosci) szacuje wysokosc buttonow btH i wielkosc tekstów na buttonach txSize */
-    /* Wartosci te beda uzywane przy kreowaniu buttonow (wysokosc but.) + wielkosci textu na tvWyraz                                                    */
+    /* Wartosci te beda uzywane przy kreowaniu buttonow (wysokosc but.) + wielkosci textu na tvWyraz                                    */
     /* Algorytm wypracowany doświadczalnie....                                                                                          */
     /* ******************************************************************************************************************************** */
 
         //Pobieram wymiary ekranu:
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        width = displaymetrics.widthPixels;
-        height= displaymetrics.heightPixels;
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = dm.widthPixels;
+        height= dm.heightPixels;
 
         //sledzenie - wyrzucic:
         //bDalej.setText(width+"x"+height);
@@ -183,12 +185,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         txSize = (float) (btH / 2.0);
 
         //Troche efektow ubocznych - wymiarowanie kontrolek pod obrazkiem i inne:
+
         //doswiadczalnie - duży i wyraźny
         tvWyrazSize = height/10;
         tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize);
         //strzalka na srodku bDalej - doswiadczalnie:
         int szerbDalej = (int) (width/2.2);
         bDalej.setPadding((int)(szerbDalej/2.5)-10 ,1,1,1);
+
+        //Przekatna ekranu w calach (na oszacowanie wielkosci tekstu wyswietlanie podpowiedzi pod obrazkiem):
+        double x = Math.pow(dm.widthPixels/dm.xdpi,2);
+        double y = Math.pow(dm.heightPixels/dm.ydpi,2);
+        screenInches = Math.sqrt(x+y);
+
     } //koniec Metody()
 
 
@@ -419,7 +428,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //--------------------------------//
 
         tvWyraz.setText(""); //nazwa pod obrazkiem - najpierw czyscimy stara nazwe
-        //Dodatkowo, w trybie treningowym lu podpowiedzi od razu pokazujemy czerwopny text pod obrazkiem:
+        //Dodatkowo, w trybie treningowym lub podpowiedzi od razu pokazujemy podrasowany text pod obrazkiem:
         if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
             ustawWygladWyrazu(tvWyraz, true);
             tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
@@ -496,7 +505,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         } else { //tryp Podpowiedz - mały, chudy, szary
             tvWyraz.setTextColor(Color.LTGRAY);
             tvWyraz.setTypeface(null, Typeface.NORMAL);
-            tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
+            if (screenInches < 5.0)
+                tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (tvWyrazSize/1.6)); //zeby nie za male na malych ekranach
+            else
+                tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);
         }
     }  //koniec Metody()
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Toast;
 import java.io.File;
 
 /**
@@ -54,18 +53,18 @@ public class DialogModalny extends Activity {
 
     private void pobierzSharedPreferences() {
     /* ******************************************************** */
-    /* Zapisane ustawienia wczytuwane sa do ZmiennychGlobalnych */
+    /* Zapisane ustawienia wczytywane sa do ZmiennychGlobalnych */
     /* ******************************************************** */
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()); //na zapisanie ustawien na next. sesję
-        //Rozpoczynamy aplikacje od wyswietleni 'startowego' zestawu (korzystam z ewentualnych ustawien z ostatniej sesji) :
 
         ZmienneGlobalne.getInstance().POZIOM           =  sharedPreferences.getInt("POZIOM",  4); //2-gi parametr na wypadek, gdyby w SharedPref. nic jeszcze nie bylo
         ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE  = sharedPreferences.getBoolean("WSZYSTKIE_ROZNE",true);
         ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI = sharedPreferences.getBoolean("ROZNICUJ_OBRAZKI",true);
 
-        ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = sharedPreferences.getBoolean("BEZ_OBRAZKOW",false);
-        ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = sharedPreferences.getBoolean("BEZ_DZWIEKU", false);
+        //Ponizej zapewniamy, ze apka obudzi sie zawsze z obrazkiem i dzwiekiem (inaczej user bylby zdezorientowany):
+        ZmienneGlobalne.getInstance().BEZ_OBRAZKOW = false;
+        ZmienneGlobalne.getInstance().BEZ_DZWIEKU  = false;
 
         ZmienneGlobalne.getInstance().BEZ_KOMENT    = sharedPreferences.getBoolean("BEZ_KOMENT",false);
         ZmienneGlobalne.getInstance().TYLKO_OKLASKI = sharedPreferences.getBoolean("TYLKO_OKLASKI", false);
@@ -77,11 +76,10 @@ public class DialogModalny extends Activity {
 
         ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = sharedPreferences.getBoolean("ZRODLEM_JEST_KATALOG", false);
 
-
         //Jesli zrodlem miałby byc katalog, to potrzebne dotatkowe sprawdzenie,bo gdyby pomiedzy uruchomieniami
         // zlikwidowano wybrany katalog to mamy problem, i wtedy przelaczamy sie na zrodlo z zasobow aplikacji:
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
-            String katalog = ZmienneGlobalne.getInstance().WYBRANY_KATALOG;
+            String katalog = sharedPreferences.getString("WYBRANY_KATALOG", "*^5%dummy");
             File file = new File(katalog);
             if (!file.exists()) {
                 ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
@@ -90,6 +88,9 @@ public class DialogModalny extends Activity {
             else {
                 if (SplashKlasa.policzObrazki(katalog) == 0) {
                     ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
+                }
+                else {
+                    ZmienneGlobalne.getInstance().WYBRANY_KATALOG = katalog;
                 }
             }
         }

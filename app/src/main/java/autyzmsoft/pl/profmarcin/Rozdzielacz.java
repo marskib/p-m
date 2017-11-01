@@ -72,7 +72,7 @@ public class Rozdzielacz {
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == true)  {this.ileObrazkow = myObrazkiSD.size();}
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {this.ileObrazkow = listaObrazkowAssets.length;}
 
-        //Policzenie liczy słow (liczbaSlow !== liczbaObrazków !! ,bo pies.jpg, pies1.jpg, pies2.jpg -> pies ; 3->1 :
+        //Policzenie liczy słow (liczbaSlow !== liczbaObrazków !! ,bo pies1.jpg, pies1.jpg, pies2.jpg -> pies ; 3->1 :
         //Zbior jest po to, zeby dac niepowtarzane wartosci + latwo policzyc:
         HashSet<String > zbiorSlow = new HashSet<String>();
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG == false) {
@@ -294,7 +294,7 @@ public class Rozdzielacz {
 
     public static String usunLastDigitIfAny(String name) {
         /**
-         * Pomocnicza, widoczna wszedzie, usuwa ewentualna ostatnia cyfre w nazwie zdjecia (bo moze byc pies.jpg, pies1.hjpg. pies2.jpg - rozne psy)
+         * Pomocnicza, widoczna wszedzie, usuwa ewentualna ostatnia cyfre w nazwie zdjecia (bo moze byc pies1.jpg, pies1.hjpg. pies2.jpg - rozne psy)
          * Zakladamy, ze dostajemy nazwe bez rozszerzenia i bez kropki na koncu
          */
           int koniec = name.length()-1;

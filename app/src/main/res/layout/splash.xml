@@ -125,7 +125,7 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
-            android:background="@drawable/border_skib"
+            android:background="@drawable/border_skib_blue"
             android:orientation="vertical"
             android:padding="@dimen/maly_odstep">
 
@@ -191,7 +191,7 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
-            android:background="@drawable/border_skib"
+            android:background="@drawable/border_skib_maroon"
             android:orientation="vertical"
             android:padding="@dimen/maly_odstep">
 
@@ -249,7 +249,7 @@
             android:layout_below="@id/l_FileChoser"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
-            android:background="@drawable/border_skib"
+            android:background="@drawable/border_skib_blue"
             android:orientation="vertical"
             android:padding="@dimen/maly_odstep">
 

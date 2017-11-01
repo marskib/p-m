@@ -303,9 +303,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 String komcie_path = "nagrania/komentarze/pozytywy/female";
                 //Facet, czy kobieta:
                 Random rand = new Random();
-                int n = rand.nextInt(3); // Gives n such that 0 <= n < 3
-                if (n == 2)
-                    komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 2 razy czesciej
+                int n = rand.nextInt(4); // Gives n such that 0 <= n < 4
+                if (n == 3)
+                    komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 3 razy czesciej
                 //teraz konkretny (losowy) plik:
                 String doZagrania = dajLosowyPlik(komcie_path);
                 odegrajZAssets(komcie_path + "/" + doZagrania, 400);    //pochwala
@@ -703,9 +703,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //Granie wlasciwe:
         String nazwaObrazka = mRozdzielacz.getAktWybrZasob();  //zawiera rozrzerzenie (.jpg , .bmp , ...)
         String rdzenNazwy = Rozdzielacz.getRemovedExtensionName(nazwaObrazka);
-        rdzenNazwy = Rozdzielacz.usunLastDigitIfAny(rdzenNazwy); //zakladam, ze plik dźwiękowy nie ma cyfry na koncu: pies.jpg,pies1.jpg,pies2.jpg --> pies.ogg
+        rdzenNazwy = Rozdzielacz.usunLastDigitIfAny(rdzenNazwy); //zakladam, ze plik dźwiękowy nie ma cyfry na koncu: pies1.jpg,pies1.jpg,pies2.jpg --> pies.ogg
         if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
-            //odeggranie z Assets (tam ogg):
+            //odeggranie z Assets (tam TYLKO ogg):
             String sciezka_do_pliku_dzwiekowego = "nagrania/" + rdzenNazwy + ".ogg";
             odegrajZAssets(sciezka_do_pliku_dzwiekowego, opozniacz);
         } else {  //pobranie nagrania z directory

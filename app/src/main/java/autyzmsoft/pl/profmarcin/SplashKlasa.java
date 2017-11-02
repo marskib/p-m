@@ -18,11 +18,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 
 
@@ -193,7 +191,8 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     
     public void bInfoClick(View v) {
         //Toast.makeText(this, "Jeszcze nie zaimplementowane...", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, ApkaInfo.class);
+        //Intent intent = new Intent(this, ApkaInfo.class);
+        Intent intent = new Intent(getApplicationContext(), ApkaInfo.class);
         this.startActivityForResult(intent, REQUEST_CODE_WRACAM_Z_APKA_INFO);
     }
 

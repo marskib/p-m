@@ -3,7 +3,6 @@ package autyzmsoft.pl.profmarcin;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +24,7 @@ public class ApkaInfo extends Activity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-
+    setContentView(R.layout.apka_info);
 
     bOkInfo = (Button) findViewById(R.id.bOkInfo);
     bStart = (Button) findViewById(R.id.bStart);

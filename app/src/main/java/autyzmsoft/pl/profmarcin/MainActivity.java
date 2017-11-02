@@ -505,7 +505,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         } else { //tryp Podpowiedz - mały, chudy, szary
             tvWyraz.setTextColor(Color.LTGRAY);
             tvWyraz.setTypeface(null, Typeface.NORMAL);
-            if (screenInches < 5.0)
+            if (screenInches < 4.8)
                 tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float) (tvWyrazSize/1.6)); //zeby nie za male na malych ekranach
             else
                 tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize/2);

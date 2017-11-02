@@ -16,7 +16,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +25,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="autyzmsoft.pl.profmarcin.SplashKlasa" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -35,7 +33,6 @@
             android:theme="@android:style/Theme.Dialog"> <!-- it gives the activity the dialog look... -->
             <intent-filter>
                 <action android:name="autyzmsoft.pl.profmarcin.DialogModalny" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -58,6 +55,10 @@
             android:label="Ostrzeżenie - używasz wersji demo">
         </activity>
 
+        <activity
+            android:name=".ApkaInfo"
+            android:label="Informacje o aplikacji">
+        </activity>
 
 
     </application>

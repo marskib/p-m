@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import java.io.File;
 
 /**
@@ -38,6 +40,9 @@ public class DialogModalny extends Activity {
         if (savedInstanceState == null) { //ten warunek oznacza, ze to nie obrot, tylko startujemy odpoczatku
             pobierzSharedPreferences();
         }
+
+        czyscDlaKrzyska(); //jezeli wysylam do Testerow, to zacieram namiary na moje www
+
     }  //koniec Metody()
 
 
@@ -95,6 +100,16 @@ public class DialogModalny extends Activity {
             }
         }
     } //koniec Metody()
+
+    public void czyscDlaKrzyska() {
+    /* Ukrywanie obrazkow i 'śladów' do strony www - przed przekazanie do Krzyska; Potem usunac */
+        if (ZmienneGlobalne.getInstance().DLA_KRZYSKA) {
+            //ImageView obrazek = (ImageView) findViewById(R.id.imageView1);
+            //if (obrazek != null) obrazek.setVisibility(View.INVISIBLE);
+            TextView link = (TextView) findViewById(R.id.autyzmsoftpl); //bo na niektorych konfiguracjach nie pokazuje tego linku
+            if (link != null) link.setVisibility(View.INVISIBLE);
+        }
+    } //koniec Metody
 
 
 }

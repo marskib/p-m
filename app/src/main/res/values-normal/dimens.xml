@@ -2,4 +2,8 @@
     <dimen name="nazwa_text_rozmiar_uwaga_na_huawei">18sp</dimen>
     <dimen name="tvPoziom_size">28dp</dimen>
     <dimen name="btn_zrodlo_text_rozmiar">15sp</dimen>
+
+    <dimen name="tvGledzenie_size">10sp</dimen>
+    <dimen name="tvInstrukcja_size">20sp</dimen>
+
 </resources>

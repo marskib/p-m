@@ -49,6 +49,7 @@
                 android:text="tvWyraz"
                 android:textColor="@color/colorTreningSkib"
                 android:layout_marginTop="-2dp"
+              android:layout_marginRight="-20dp"
                 android:textStyle="bold" />
 
 

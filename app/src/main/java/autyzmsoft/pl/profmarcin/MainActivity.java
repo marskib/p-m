@@ -22,6 +22,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,7 +31,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -118,9 +118,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         setContentView(R.layout.activity_main);
 
         //Uchwyty do kontrolek:
-        bDalej = (Button) findViewById(R.id.bDalej);
+        bDalej  = (Button) findViewById(R.id.bDalej);
         tvWyraz = (TextView) findViewById(R.id.tvWyraz);
-        bAgain = (Button) findViewById(R.id.bAgain);
+        bAgain  = (Button) findViewById(R.id.bAgain);
         mLayout = (LinearLayout) findViewById(R.id.layoutButtons);
 
         imageView = (ImageView) findViewById(R.id.imV);
@@ -133,23 +133,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         l_obrazek_i_reszta = (LinearLayout) findViewById(R.id.l_Obrazek_i_Reszta);
 
-        //tvWyraz.setOnClickListener(UpCaseLsnr);      //na wielkie/,ale litery na klik
-
-        tvWyraz.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                if (tvWyraz.getTag() == null) {
-                    String toUp = (tvWyraz.getText()).toString();
-                    toUp = toUp.toUpperCase(Locale.getDefault());
-                    tvWyraz.setText(toUp);
-                    tvWyraz.setTag(1);
-                } else {
-                    String toDown = (tvWyraz.getText()).toString();
-                    toDown = toDown.toLowerCase(Locale.getDefault());
-                    tvWyraz.setText(toDown);
-                    tvWyraz.setTag(null);
-                }
-            }
-        });
+        tvWyraz.setOnTouchListener(upCaseLsnr);      //na Wielkie/Małe litery na klik
 
         wygenerujButtony();
 
@@ -164,29 +148,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     } //koniec metody onCreate()
 
-    //View.OnClickListener UpCaseLsnr = new View.OnClickListener()  {};
-    //
-    //{
-    //    /* ********************************************* */
-    //    /*Powiekszenie/pomniejszenie nazwy pod obrazkiem            */
-    //    /* ********************************************* */
-    //    @Override public void onClick(View view) {
-    //
-    //        if (tvWyraz.getTag() == null) {
-    //            String toUp = (tvWyraz.getText()).toString();
-    //            toUp = toUp.toUpperCase(Locale.getDefault());
-    //            tvWyraz.setText(toUp);
-    //            tvWyraz.setTag(1);
-    //        } else {
-    //            String toDown = (tvWyraz.getText()).toString();
-    //            toDown = toDown.toLowerCase(Locale.getDefault());
-    //            tvWyraz.setText(toDown);
-    //            tvWyraz.setTag(null);
-    //        }
-    //    }
 
 
-        private void oszacujWysokoscButtonow_i_Tekstu() {
+    private void oszacujWysokoscButtonow_i_Tekstu() {
     /* ******************************************************************************************************************************** */
     /* Na podstawie liczby buttonow (=wybranego poziomu trudnosci) szacuje wysokosc buttonow btH i wielkosc tekstów na buttonach txSize */
     /* Wartosci te beda uzywane przy kreowaniu buttonow (wysokosc but.) + wielkosci textu na tvWyraz                                    */
@@ -743,4 +707,24 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             AlertDialog alert11 = builder1.create();
             alert11.show();
         } //koniec Metody()
+
+
+    View.OnTouchListener upCaseLsnr = new View.OnTouchListener() {
+        /* Na wielkie/Małe litery na klik/dotkniecie na wyrazie pod obrazkiem */
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            String naKlawiszu = mRozdzielacz.getAktWybrWyraz();
+            if (tvWyraz.getText()
+                .equals(naKlawiszu)) {  //czyli na tvWyraz małe(=oryginalne) i podnosimy:
+                String toUp = (tvWyraz.getText()).toString();
+                toUp = toUp.toUpperCase(Locale.getDefault());
+                tvWyraz.setText(toUp);
+            } else { //na tvWyraz wielkie litery, wiec przywracamy oryginal (ten sposob rozwiazuje problem Mikołaja)
+                tvWyraz.setText(naKlawiszu);
+            }
+            return false; //musi byc false, bo jesli zabrac palec, to znowu sie wykonuje....
+        }
+    };
+
+
 }

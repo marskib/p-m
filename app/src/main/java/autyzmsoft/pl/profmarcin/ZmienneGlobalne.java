@@ -44,10 +44,10 @@ public class ZmienneGlobalne extends Application {
     //konstruktor tego singletona + ustawienia poczatkowe aplikacji:
     private ZmienneGlobalne() {
 
-        nieGrajJestemW105 = true; //wyrzucić po skonczonym developmencie
+        nieGrajJestemW105 = false; //wyrzucić po skonczonym developmencie
 
 
-        PELNA_WERSJA = false;
+        PELNA_WERSJA = true;
         POZIOM       = 4;
         WSZYSTKIE_ROZNE  = true;
         ROZNICUJ_OBRAZKI = true;
@@ -67,7 +67,7 @@ public class ZmienneGlobalne extends Application {
         ZMIENIONO_ZRODLO = true;                //inicjacyjnie na true, zeby po uruchomieniu apki wykonala sie onResume() w calosci
         WYBRANY_KATALOG = "*^5%dummy";   //"nic jeszcze nie wybrano" - lepiej to niz null, bo z null'em problemy...
 
-        DLA_KRZYSKA = true;
+        DLA_KRZYSKA = false;
     } //konstruktor
 }
 

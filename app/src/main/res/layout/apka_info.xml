@@ -41,7 +41,7 @@
             android:id="@+id/tvGledzenie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@strxapka_infoinfo"
+            android:text="@string/apka_info"
             android:textSize="@dimen/tvGledzenie_size"/>
 
 

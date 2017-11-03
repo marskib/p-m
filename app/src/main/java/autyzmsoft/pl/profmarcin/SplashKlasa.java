@@ -191,7 +191,6 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     
     public void bInfoClick(View v) {
         //Toast.makeText(this, "Jeszcze nie zaimplementowane...", Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(this, ApkaInfo.class);
         Intent intent = new Intent(getApplicationContext(), ApkaInfo.class);
         this.startActivityForResult(intent, REQUEST_CODE_WRACAM_Z_APKA_INFO);
     }
@@ -420,6 +419,25 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             cb_Trening.setChecked(false);
         }
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_WRACAM_Z_APKA_INFO) {
+            //toast("Wrocilem z apkaInfo");
+            if (resultCode == Activity.RESULT_OK) { //to musi byc na wypadek powrotu przez klawisz Back (zeby kod ponizej sie nie wykonal, bo error..)
+                String message = data.getStringExtra("MESSAGE");
+                if (message.equals("KL_START"))
+                    this.finish();
+            }
+        }
+        //toast(Integer.toString(resultCode));
+    } //koniec metody()
+
+
 
     @Override
     protected void onDestroy() {

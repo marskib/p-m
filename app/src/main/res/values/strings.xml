@@ -70,17 +70,12 @@ Autor nie ponosi odpowiedzialności za naruszenie przez Użytkownika praw osób 
     </string>
 
   <string name="obsluga_opis">
-        \n<b>Długie dotknięcie na obrazku</b>  - Ekran z ustawieniami
-        \n<b>Krótkie dotknięcie na obrazku</b> - ponowne odegranie dźwięku
-        \n<b>Krótkie dotknięcie na napisie pod obrazkiem</b> - zmiana wielkie/małe litery
-        \n<b>Strzałka w prawo</b> - następny obrazek
-        \n<b>Strzałka w lewo</b> - poprzedni obrazek; w losowym trybie pokazywania obrazków możliwy jest powrót tylko o 1 obrazek wstecz
+        \n<b>Długie dotknięcie na obrazku lub w pustym miejscu po obrazku</b>  - Ekran z ustawieniami
+        \n<b>Krótkie dotknięcie na obrazku lub w pustym miejscu po obrazku</b> - ponowne odegranie dźwięku
+        \n<b>Krótkie dotknięcie na czerwonym napisie pod obrazkiem</b> - zmiana wielkie/małe litery
         \n
         \n<b>Ekran z ustawieniami:</b>
-        \nMożemy wyłączyć/włączyć głos, napisy, ustalić czy obrazki mają być wyświetlane alfabetycznie/losowo, możemy wybrać źródło z którego mają być pobierane obrazki - własny katalog/zasoby aplikacji.
-        \n
-        \nAplikacja dostosowuje się do 2-ch położeń ekranu - pionowego i poziomego; w ustawieniach telefonu należy włączyć opcję <i>obrót ekranu</i>.
-        \nPołożenie poziome zapewnia większą wygodę trzymania telefonu (istotne w przypadku młodszych dzieci)
+        \nMożemy wyłączyć/włączyć głos, obraz, podpowiedzi, ustalać formę nagrody dźwiękowej, możemy wybrać źródło z którego mają być pobierane obrazki - własny katalog/zasoby aplikacji.
         \n
         \n
         \n

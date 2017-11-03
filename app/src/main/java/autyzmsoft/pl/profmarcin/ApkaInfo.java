@@ -58,7 +58,7 @@ public class ApkaInfo extends Activity {
   private void dajInfoWersja(){
     /*Na ekranie ApkaInfo.xml wypisuje jeden wiersz informacji o wersji aplikacji*/
     TextView tvWersja = (TextView) findViewById(R.id.tvWersja);
-    String str = "MPrzegladarka 1.0 wersja ";
+    String str = "  ProfMarcin 1.0 wersja ";
     if (ZmienneGlobalne.getInstance().PELNA_WERSJA)
       str = str + "Pełna";
     else

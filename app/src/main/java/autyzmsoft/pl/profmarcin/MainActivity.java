@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     TextView tvWyraz;       //wyraz pod obrazkiem
     Button bDalej;          //button pod obrazkiem na przechodzenie po kolejne cwiczenie
     Button bAgain;          //button pod obrazkiem umozliwiajacy 'jeszcze raz to samo ćwiczenie"
-    LinearLayout mLayout;  //do tego layoutu bedziemy dorzucac buttony
+    LinearLayout mLayout;   //do tego layoutu bedziemy dorzucac buttony
     ImageView imageView;    //obrazek
     LinearLayout l_obrazek_i_reszta;  //cale pole z lewej strony (bez klawiszy)
 
@@ -224,8 +224,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }
         }  //koniec Metody()
 
+
         private void wygenerujButtony() {
-        /* Generujemy lBts buttonow; zapamietujemy w tablicy tButtons[] */
+        /* Generujemy lBts buttonow; zapamietujemy w tablicy tButtons[]; pokazujemy na ekranie */
             MojButton mb;  //robocza, dla wiekszej czytelnosci
             //
             oszacujWysokoscButtonow_i_Tekstu();
@@ -242,8 +243,22 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 params.setMargins(0, (int) (btH / 7), 10, 0); //substitute parameters for Left, Top, Right, Bottom ( LTRB )
                 //params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 tButtons[i].setLayoutParams(params);
+                tButtons[i].setVisibility(View.INVISIBLE);  //za chwile pokaze z opoznieniem - efekciarstwo ;)
             }
+
+            //Pokazanie klawiszy z lekkim opoznieniem (nie dalo sie zrobic powyzej...):
+            Handler mHandl = new Handler();
+            mHandl.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < lBts; i++) {
+                        tButtons[i].setVisibility(View.VISIBLE);
+                    }
+                }
+            },1200);
+
         }  //koniec Metody()
+
 
         @Override public void onClick(View view) {
             /*****************************************************************************

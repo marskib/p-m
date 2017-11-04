@@ -31,6 +31,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     CheckBox cb_RoznicujKlawisze;
     CheckBox cb_RoznicujObrazki;
     CheckBox cb_Trening;
+    CheckBox cb_Delayed;
     CheckBox cb_Podp;
     RadioButton rb_NoPictures;
     RadioButton rb_NoSound;
@@ -72,10 +73,12 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         boolean isCheckedObrazki  = cb_RoznicujObrazki.isChecked();
         boolean isCheckedTrening  = cb_Trening.isChecked();
         boolean isCheckedPodp     = cb_Podp.isChecked();
+        boolean isCheckedDelayed  = cb_Delayed.isChecked();
         ZmienneGlobalne.getInstance().WSZYSTKIE_ROZNE  = isCheckedKlawisze;
         ZmienneGlobalne.getInstance().ROZNICUJ_OBRAZKI = isCheckedObrazki;
         ZmienneGlobalne.getInstance().TRYB_TRENING     = isCheckedTrening;
         ZmienneGlobalne.getInstance().TRYB_PODP        = isCheckedPodp;
+        ZmienneGlobalne.getInstance().DELAYED          = isCheckedDelayed;
 
         //Komentarze/Nagrody:
         boolean isCheckedNoComments  = rb_NoComments.isChecked();
@@ -205,6 +208,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         cb_RoznicujObrazki.setChecked(true);
         cb_Trening.setChecked(false);
         cb_Podp.setChecked(false);
+        cb_Delayed.setChecked(true);
         rb_NoPictures.setChecked(false);
         rb_NoSound.setChecked(false);
         rb_TylkoOklaski.setChecked(false);
@@ -366,6 +370,10 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         isChecked = ZmienneGlobalne.getInstance().TRYB_PODP;
         cb_Podp.setChecked(isChecked);
 
+        cb_Delayed = (CheckBox) findViewById(R.id.cb_Delay);
+        isChecked = ZmienneGlobalne.getInstance().DELAYED;
+        cb_Delayed.setChecked(isChecked);
+
         rb_NoPictures = (RadioButton) findViewById(R.id.rb_noPicture);
         isChecked     = ZmienneGlobalne.getInstance().BEZ_OBRAZKOW;
         rb_NoPictures.setChecked(isChecked);
@@ -459,6 +467,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
         edit.putBoolean("TRYB_TRENING", ZmienneGlobalne.getInstance().TRYB_TRENING);
         edit.putBoolean("TRYB_PODP", ZmienneGlobalne.getInstance().TRYB_PODP);
+        edit.putBoolean("DELAYED",ZmienneGlobalne.getInstance().DELAYED);
         edit.putBoolean("ODMOWA_DOST", ZmienneGlobalne.getInstance().ODMOWA_DOST);
 
         edit.putBoolean("ZRODLEM_JEST_KATALOG", ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG);

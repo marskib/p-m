@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.File;
 
@@ -77,6 +76,7 @@ public class DialogModalny extends Activity {
 
         ZmienneGlobalne.getInstance().TRYB_TRENING  = sharedPreferences.getBoolean("TRYB_TRENING", false);
         ZmienneGlobalne.getInstance().TRYB_PODP     = sharedPreferences.getBoolean("TRYB_PODP", false);
+        ZmienneGlobalne.getInstance().DELAYED       = sharedPreferences.getBoolean("DELAYED", true);
         ZmienneGlobalne.getInstance().ODMOWA_DOST   = sharedPreferences.getBoolean("ODMOWA_DOST", false);
 
         ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = sharedPreferences.getBoolean("ZRODLEM_JEST_KATALOG", false);

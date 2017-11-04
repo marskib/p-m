@@ -247,6 +247,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }
 
             //Pokazanie klawiszy z lekkim opoznieniem (nie dalo sie zrobic powyzej...):
+            int delay = 0;
+            if (ZmienneGlobalne.getInstance().DELAYED)
+                delay = 1200;
             Handler mHandl = new Handler();
             mHandl.postDelayed(new Runnable() {
                 @Override
@@ -255,7 +258,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         tButtons[i].setVisibility(View.VISIBLE);
                     }
                 }
-            },1200);
+            },delay);
 
         }  //koniec Metody()
 

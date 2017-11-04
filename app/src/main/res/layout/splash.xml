@@ -117,7 +117,7 @@
             android:id="@+id/cb_Podp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/l_Zobrazowanie"
+            android:layout_above="@+id/cb_Delay"
             android:layout_marginLeft="40dp"
             android:layout_toEndOf="@+id/cb_Trening"
             android:onClick="cbTreningPodpClicked"
@@ -126,12 +126,24 @@
             android:textStyle="bold"
             />
 
+        <CheckBox
+          android:id="@+id/cb_Delay"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/cb_Trening"
+          android:layout_marginLeft="@dimen/text_margin"
+          android:layout_marginTop="@dimen/text_margin"
+          android:text=" klawisze pokazuj z Opóźnieniem"
+          android:textSize="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
+          android:textStyle="bold"
+          />
+
 
         <LinearLayout
             android:id="@+id/l_Zobrazowanie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cb_Trening"
+            android:layout_below="@id/cb_Delay"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"
             android:layout_marginTop="@dimen/nazwa_text_rozmiar_uwaga_na_huawei"

@@ -27,8 +27,9 @@ public class ZmienneGlobalne extends Application {
     public boolean TYLKO_OKLASKI;       //patrz wyżej
     public boolean CISZA;               //kompletna Cisza, bez nagrod i bez 'ding,'brrr' po kliknieciu klawisza
 
-    public boolean TRYB_TRENING;         //czy pracujemy w trybie treningowym (pokazujac cwiczenie od razu wyswietlamy nazwe pod obrazkiem)
+    public boolean TRYB_TRENING;        //czy pracujemy w trybie treningowym (pokazujac cwiczenie od razu wyswietlamy nazwe pod obrazkiem)
     public boolean TRYB_PODP;           //to samo co TRYB_TTRENING, tylko nazwa pod obrazkiem duzo mniejszymi literami i nie czerwona
+    public boolean DELAYED;             //czy pokazywać klawisze z wyrazami z opóźnieniem (efekciarstwo ;))
     public boolean ODMOWA_DOST;         //na etapie instalacji/1-go uruchomienia user odmowil dostepu do kart(y); dotyczy androida 6 i więcej
 
     public boolean nieGrajJestemW105;  //robocza na czas developmentu
@@ -61,6 +62,7 @@ public class ZmienneGlobalne extends Application {
 
         TRYB_TRENING = false;
         TRYB_PODP    = false;
+        DELAYED      = true;
         ODMOWA_DOST  = false;                    //w wersji Androida <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
 
         ZRODLEM_JEST_KATALOG = false;         //startujemy ze zrodlem w Assets

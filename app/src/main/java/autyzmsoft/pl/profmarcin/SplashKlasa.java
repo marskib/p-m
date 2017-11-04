@@ -39,6 +39,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     RadioButton rb_zKatalogu;
     RadioButton rb_NoComments;
     RadioButton rb_TylkoOklaski;
+    RadioButton rb_TylkoGlos;
     RadioButton rb_Cisza;
     TextView sciezka; //informacyjny teksci pokazujacy biezacy katalog i/lub liczbe obrazkow
 
@@ -83,9 +84,11 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         //Komentarze/Nagrody:
         boolean isCheckedNoComments  = rb_NoComments.isChecked();
         boolean isCheckedTylOkl      = rb_TylkoOklaski.isChecked();
+        boolean isCheckedTylGlos     = rb_TylkoGlos.isChecked();
         boolean isCheckedCisza       = rb_Cisza.isChecked();
         ZmienneGlobalne.getInstance().BEZ_KOMENT    = isCheckedNoComments;
         ZmienneGlobalne.getInstance().TYLKO_OKLASKI = isCheckedTylOkl;
+        ZmienneGlobalne.getInstance().TYLKO_GLOS    = isCheckedTylGlos;
         ZmienneGlobalne.getInstance().CISZA         = isCheckedCisza;
 
 
@@ -212,6 +215,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         rb_NoPictures.setChecked(false);
         rb_NoSound.setChecked(false);
         rb_TylkoOklaski.setChecked(false);
+        rb_TylkoGlos.setChecked(false);
         rb_NoComments.setChecked(false);
 
         //inicjacja, bo tego nie ma w skladowych klasy:
@@ -390,6 +394,10 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         isChecked = ZmienneGlobalne.getInstance().TYLKO_OKLASKI;
         rb_TylkoOklaski.setChecked(isChecked);
 
+        rb_TylkoGlos = (RadioButton) findViewById(R.id.rb_TylkoGlos);
+        isChecked = ZmienneGlobalne.getInstance().TYLKO_GLOS;
+        rb_TylkoGlos.setChecked(isChecked);
+
         rb_Cisza = (RadioButton) findViewById(R.id.rb_Cisza);
         isChecked = ZmienneGlobalne.getInstance().CISZA;
         rb_Cisza.setChecked(isChecked);
@@ -418,6 +426,8 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
             sciezka.setText(strLiczba+" szt.");
         }
     } //koniec Metody()
+
+
 
     public void cbTreningPodpClicked(View v) {
         //Kontrolki in question must be mutually exclusive
@@ -463,6 +473,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
 
         edit.putBoolean("BEZ_KOMENT", ZmienneGlobalne.getInstance().BEZ_KOMENT);
         edit.putBoolean("TYLKO_OKLASKI", ZmienneGlobalne.getInstance().TYLKO_OKLASKI);
+        edit.putBoolean("TYLKO_GLOS", ZmienneGlobalne.getInstance().TYLKO_GLOS);
         edit.putBoolean("CISZA", ZmienneGlobalne.getInstance().CISZA);
 
         edit.putBoolean("TRYB_TRENING", ZmienneGlobalne.getInstance().TRYB_TRENING);

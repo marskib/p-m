@@ -282,34 +282,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         tButtons[i].setTypeface(null, Typeface.NORMAL);
                     }
                 }
-                //Odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem:
-                int opozniacz = 600; //wyraz z lekiim opoznieniem - efekt lepszy
-                Handler handler0 = new Handler();
-                handler0.postDelayed(new Runnable() {
-                    public void run() {
-                        ustawWygladWyrazu(tvWyraz, true);  //tłusty czerwony
-                        tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
-                        tvWyraz.setVisibility(View.VISIBLE);
-                    }
-                }, opozniacz);
 
-                //klawisz na pojscie dale z lekkim opoznieniem (dydaktyka):
-                int opozniacz1 = 2500;//1500;  //milisekundy
-                Handler handler1 = new Handler();
-                handler1.postDelayed(new Runnable() {
-                    public void run() {
-                        //Wypisanie nazwy (z lekkim opoznieniem):
-                        bDalej.setVisibility(View.VISIBLE);
-                        bAgain.setVisibility(View.VISIBLE);
-                    }
-                }, opozniacz1);
+                wyswietlObiektyPodObrazkiem();  //wyraz, bDalej, bAgain
 
                 //Odegranie losowej pochwały:
 
                 if (ZmienneGlobalne.getInstance().BEZ_KOMENT || ZmienneGlobalne.getInstance().CISZA)
                     return;  //jak ma byc cisza lub bez koment. - to wypad...
 
-                if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {  //jest pochwala
+                if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {  //pochwala i oklaski
                     String komcie_path = "nagrania/komentarze/pozytywy/female";
                     //Facet, czy kobieta:
                     Random rand = new Random();
@@ -319,8 +300,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     String doZagrania = dajLosowyPlik(komcie_path);
                     odegrajZAssets(komcie_path + "/" + doZagrania, 400);    //pochwala
                     odegrajZAssets("nagrania/komentarze/oklaski.ogg", 2900); //oklaski
-                } else odegrajZAssets("nagrania/komentarze/oklaski.ogg", 400);
+                }
+                else odegrajZAssets("nagrania/komentarze/oklaski.ogg", 400);
             } //if trafiony klawisz
+
             else { //zle, wiec 'brrr' na klawiszu + ewentualny koment:
 
                 if (ZmienneGlobalne.getInstance().CISZA) return;
@@ -619,9 +602,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }  //koniec Matody()
 
         public void odegrajZkartySD(final String sciezka_do_pliku_parametr, int delay_milisek) {
-    /* ************************************** */
-    /* Odegranie pliku dzwiekowego z karty SD */
-    /* ************************************** */
+        /* ************************************** */
+        /* Odegranie pliku dzwiekowego z karty SD */
+        /* ************************************** */
 
             if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
 
@@ -681,9 +664,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             }, delay_milisek);
         } //koniec metody odegrajZkartySD
 
+
+
         private void odegrajWyraz(int opozniacz) {
             /*************************************************/
-    /* Odegranie wyrazu wybranego przez Rozdzielacz */
+            /* Odegranie wyrazu wybranego przez Rozdzielacz */
             /*************************************************/
             //najpierw sprawdzam, czy trzeba:
             //Jezeli w ustawieniech jest, zeby nie grac - to wychodzimy:
@@ -725,6 +710,35 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             AlertDialog alert11 = builder1.create();
             alert11.show();
         } //koniec Metody()
+
+
+
+    private void wyswietlObiektyPodObrazkiem() {
+        /* ***************************************************************************************************** */
+        /* Po nacisnieciu zwycieskiego klawisza odblokowanie bDalej, bAgain i wyswietlenie wyrazu pod obrazkiem */
+        /* ***************************************************************************************************** */
+
+        //wyraz z lekkim opoznieniem - efekt lepszy
+        int opozniacz = 600;
+        Handler handler0 = new Handler();
+        handler0.postDelayed(new Runnable() {
+            public void run() {
+                ustawWygladWyrazu(tvWyraz, true);  //tłusty czerwony
+                tvWyraz.setText(mRozdzielacz.getAktWybrWyraz());
+                tvWyraz.setVisibility(View.VISIBLE);
+            }
+        }, opozniacz);
+
+        //klawisze na pojscie dale z lekkim opoznieniem (dydaktyka):
+        opozniacz = 2500;//1500;  //milisekundy
+        Handler handler1 = new Handler();
+        handler1.postDelayed(new Runnable() {
+            public void run() {
+                bDalej.setVisibility(View.VISIBLE);
+                bAgain.setVisibility(View.VISIBLE);
+            }
+        }, opozniacz);
+    } //koniec Metody()
 
 
     View.OnTouchListener upCaseLsnr = new View.OnTouchListener() {

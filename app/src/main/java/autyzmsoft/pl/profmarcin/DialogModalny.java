@@ -72,6 +72,7 @@ public class DialogModalny extends Activity {
 
         ZmienneGlobalne.getInstance().BEZ_KOMENT    = sharedPreferences.getBoolean("BEZ_KOMENT",false);
         ZmienneGlobalne.getInstance().TYLKO_OKLASKI = sharedPreferences.getBoolean("TYLKO_OKLASKI", false);
+        ZmienneGlobalne.getInstance().TYLKO_GLOS    = sharedPreferences.getBoolean("TYLKO_GLOS", false);
         ZmienneGlobalne.getInstance().CISZA         = sharedPreferences.getBoolean("CISZA", false);
 
         ZmienneGlobalne.getInstance().TRYB_TRENING  = sharedPreferences.getBoolean("TRYB_TRENING", false);

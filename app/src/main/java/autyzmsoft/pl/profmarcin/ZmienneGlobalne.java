@@ -25,6 +25,7 @@ public class ZmienneGlobalne extends Application {
 
     public boolean BEZ_KOMENT;          //Bez Komentarza-Nagrody po wybraniu klawisza
     public boolean TYLKO_OKLASKI;       //patrz wyżej
+    public boolean TYLKO_GLOS;          //patrz wyżej
     public boolean CISZA;               //kompletna Cisza, bez nagrod i bez 'ding,'brrr' po kliknieciu klawisza
 
     public boolean TRYB_TRENING;        //czy pracujemy w trybie treningowym (pokazujac cwiczenie od razu wyswietlamy nazwe pod obrazkiem)
@@ -58,16 +59,17 @@ public class ZmienneGlobalne extends Application {
 
         BEZ_KOMENT    = false;
         TYLKO_OKLASKI = false;
+        TYLKO_GLOS    = false;
         CISZA         = false;
 
         TRYB_TRENING = false;
         TRYB_PODP    = false;
         DELAYED      = true;
-        ODMOWA_DOST  = false;                    //w wersji Androida <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
+        ODMOWA_DOST  = false;                //w wersji Androida <=5 dostep jest automatyczny, wiec muszę to ustawic bo logika aplikacji by przeszkadzala...
 
-        ZRODLEM_JEST_KATALOG = false;         //startujemy ze zrodlem w Assets
-        ZMIENIONO_ZRODLO = true;                //inicjacyjnie na true, zeby po uruchomieniu apki wykonala sie onResume() w calosci
-        WYBRANY_KATALOG = "*^5%dummy";   //"nic jeszcze nie wybrano" - lepiej to niz null, bo z null'em problemy...
+        ZRODLEM_JEST_KATALOG = false;        //startujemy ze zrodlem w Assets
+        ZMIENIONO_ZRODLO = true;             //inicjacyjnie na true, zeby po uruchomieniu apki wykonala sie onResume() w calosci
+        WYBRANY_KATALOG = "*^5%dummy";       //"nic jeszcze nie wybrano" - lepiej to niz null, bo z null'em problemy...
 
         DLA_KRZYSKA = false;
     } //konstruktor

@@ -57,7 +57,8 @@
 
         <activity
             android:name=".ApkaInfo"
-            android:label="Informacje o aplikacji">
+            android:label="Informacje o aplikacji"
+            android:screenOrientation="landscape">
         </activity>
 
 

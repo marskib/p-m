@@ -263,120 +263,130 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }  //koniec Metody()
 
 
-        @Override public void onClick(View view) {
-            /*****************************************************************************
-             CO na klik na buttonie z wyrazem (jednym z tButtons[])
-             *****************************************************************************/
+    @Override
+    public void onClick(View view) {
+        /*****************************************************************************
+         CO na klik na buttonie z wyrazem (jednym z tButtons[])
+         *****************************************************************************/
 
-            String napisNaKl = (String) ((Button) view).getText();
-            //Trafiliśmy na właściwy klawisz:
-            if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to :
-                if (!ZmienneGlobalne.getInstance().CISZA) szybkiDing();
-                //1.Wyłaczmy wszystkie listenery (bo efekty uboczne jesli klikanie po 'zwyciestwie'),
-                //2.Gasimy i deaktywujemy wszystkie inne, oprócz kliknietego (dobry efekt wizualny):
-                //3.Odgrywamy 'aplauz'
-                for (int i = 0; i < lBts; i++) {
-                    view.setOnClickListener(null);  //ad. 1
-                    if (tButtons[i] != view) {      //ad. 2
-                        tButtons[i].setEnabled(false);
-                        tButtons[i].setTypeface(null, Typeface.NORMAL);
-                    }
-                }
-
-                wyswietlObiektyPodObrazkiem();  //wyraz, bDalej, bAgain
-
-                //Odegranie losowej pochwały:
-
-                if (ZmienneGlobalne.getInstance().BEZ_KOMENT || ZmienneGlobalne.getInstance().CISZA)
-                    return;  //jak ma byc cisza lub bez koment. - to wypad...
-
-                if (!ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {  //pochwala i oklaski
-                    String komcie_path = "nagrania/komentarze/pozytywy/female";
-                    //Facet, czy kobieta:
-                    Random rand = new Random();
-                    int n = rand.nextInt(4); // Gives n such that 0 <= n < 4
-                    if (n == 3) komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 3 razy czesciej
-                    //teraz konkretny (losowy) plik:
-                    String doZagrania = dajLosowyPlik(komcie_path);
-                    odegrajZAssets(komcie_path + "/" + doZagrania, 400);    //pochwala
-                    odegrajZAssets("nagrania/komentarze/oklaski.ogg", 2900); //oklaski
-                }
-                else odegrajZAssets("nagrania/komentarze/oklaski.ogg", 400);
-            } //if trafiony klawisz
-
-            else { //zle, wiec 'brrr' na klawiszu + ewentualny koment:
-
-                if (ZmienneGlobalne.getInstance().CISZA) return;
-
-                odegrajZAssets("nagrania/komentarze/zle.ogg", 0);
-                if (!ZmienneGlobalne.getInstance().BEZ_KOMENT) {
-                    odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a", 320);  //"y-y" męski glos dezaprobaty
+        String napisNaKl = (String) ((Button) view).getText();
+        //Trafiliśmy na właściwy klawisz:
+        if (napisNaKl.equals(mRozdzielacz.getAktWybrWyraz())) { //jezeli napis na kliknietym klawiszu taki jaki ustanowil mRozdzielacz, to :
+            if (!ZmienneGlobalne.getInstance().CISZA) //wynosze na gore, zeby jak najmniejsze opoznienie - efek(ciarstwo)...
+                szybkiDing();
+            //1.Wyłaczmy wszystkie listenery (bo efekty uboczne jesli klikanie po 'zwyciestwie'),
+            //2.Gasimy i deaktywujemy wszystkie inne, oprócz kliknietego (dobry efekt wizualny):
+            //3.Wyswietlamy czerwony wyraz pod obrazkiem
+            //4.Odgrywamy 'aplauz'
+            for (int i = 0; i < lBts; i++) {
+                view.setOnClickListener(null);  //ad. 1
+                if (tButtons[i] != view) {      //ad. 2
+                    tButtons[i].setEnabled(false);
+                    tButtons[i].setTypeface(null, Typeface.NORMAL);
                 }
             }
-        } //koniec Metody()
+            wyswietlObiektyPodObrazkiem();  //wyraz, bDalej, bAgain
 
-        String dajLosowyPlik(String aktywa) {
-            //Zwraca losowy plik z podanego katalogu w Assets; używana do generowania losowej pochwały/nagany
+            if (ZmienneGlobalne.getInstance().CISZA) return;
 
-            String[] listaKomciow = null;
-            AssetManager mgr = getAssets();
-            try {
-                listaKomciow = mgr.list(aktywa);
-            } catch (IOException e) {
-                e.printStackTrace();
+            //Odegranie losowej pochwały:
+
+            if (ZmienneGlobalne.getInstance().BEZ_KOMENT) return;
+
+            if (ZmienneGlobalne.getInstance().TYLKO_OKLASKI) {
+                odegrajZAssets("nagrania/komentarze/oklaski.ogg", 400);
+                return;
             }
-            int licznosc = listaKomciow.length;
-            int rnd = (int) (Math.random() * licznosc);
-            int i = -1;
-            String plik = null;
-            for (String file : listaKomciow) {
-                i++;
-                if (i == rnd) {
-                    plik = file;
-                    break;
-                }
-            }
-            return plik;
-        } //koniec metody()
+            //Teraz mamy pewnosc, ze glos [+oklaski], losujemy plik z mową:
+            String komcie_path = "nagrania/komentarze/pozytywy/female";
+            //facet, czy kobieta:
+            Random rand = new Random();
+            int n = rand.nextInt(4); // Gives n such that 0 <= n < 4
+            if (n == 3) komcie_path = "nagrania/komentarze/pozytywy/male"; //kobiecy glos 3 razy czesciej
+            //teraz konkretny (losowy) plik:
+            String doZagrania = dajLosowyPlik(komcie_path);
 
-        public void odegrajZAssets(final String sciezka_do_pliku_parametr, int delay_milisek) {
+            odegrajZAssets(komcie_path + "/" + doZagrania, 400);    //pochwala glosowa
+
+            if (ZmienneGlobalne.getInstance().TYLKO_GLOS) return;
+
+            //teraz oklaski (bo to jeszcze pozostalo):
+            odegrajZAssets("nagrania/komentarze/oklaski.ogg", 2900); //oklaski
+        } //if trafiony klawisz
+
+        else { //zle, wiec 'brrr' na klawiszu + ewentualny koment:
+            if (ZmienneGlobalne.getInstance().CISZA) return;
+            odegrajZAssets("nagrania/komentarze/zle.ogg", 0); //brrr...
+            if (ZmienneGlobalne.getInstance().BEZ_KOMENT) return;
+            odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a", 320);  //"y-y" męski glos dezaprobaty
+        }
+    } //koniec Metody()
+
+
+
+    String dajLosowyPlik(String aktywa) {
+        //Zwraca losowy plik z podanego katalogu w Assets; używana do generowania losowej pochwały/nagany
+
+        String[] listaKomciow = null;
+        AssetManager mgr = getAssets();
+        try {
+            listaKomciow = mgr.list(aktywa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int licznosc = listaKomciow.length;
+        int rnd = (int) (Math.random() * licznosc);
+        int i = -1;
+        String plik = null;
+        for (String file : listaKomciow) {
+            i++;
+            if (i == rnd) {
+                plik = file;
+                break;
+            }
+        }
+        return plik;
+    } //koniec metody()
+
+
+    public void odegrajZAssets(final String sciezka_do_pliku_parametr, int delay_milisek) {
     /* ***************************************************************** */
-            // Odegranie dzwieku umieszczonego w Assets (w katalogu 'nagrania'):
+    // Odegranie dzwieku umieszczonego w Assets (w katalogu 'nagrania'):
     /* ***************************************************************** */
 
-            if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
+        if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    try {
-                        if (mp != null) {
-                            mp.release();
-                            mp = new MediaPlayer();
-                        } else {
-                            mp = new MediaPlayer();
-                        }
-                        final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
-                        AssetFileDescriptor descriptor = getAssets().openFd(sciezka_do_pliku);
-                        mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
-                        descriptor.close();
-                        mp.prepare();
-                        mp.setVolume(1f, 1f);
-                        mp.setLooping(false);
-                        mp.start();
-                        //Toast.makeText(getApplicationContext(),"Odgrywam: "+sciezka_do_pliku,Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        //Toast.makeText(getApplicationContext(), "Nie można odegrać pliku z dźwiękiem.", Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                try {
+                    if (mp != null) {
+                        mp.release();
+                        mp = new MediaPlayer();
+                    } else {
+                        mp = new MediaPlayer();
                     }
+                    final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
+                    AssetFileDescriptor descriptor = getAssets().openFd(sciezka_do_pliku);
+                    mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+                    descriptor.close();
+                    mp.prepare();
+                    mp.setVolume(1f, 1f);
+                    mp.setLooping(false);
+                    mp.start();
+                    //Toast.makeText(getApplicationContext(),"Odgrywam: "+sciezka_do_pliku,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    //Toast.makeText(getApplicationContext(), "Nie można odegrać pliku z dźwiękiem.", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
-            }, delay_milisek);
+            }
+        }, delay_milisek);
         } //koniec Metody()
 
         private void szybkiDing() {
             //Odchudzona wersja OdegrajZAssets() - zeby bez zbednych opoznien odegral dinga po porawnym klawiszu - lepszy efekt
 
-            if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
+            //if (ZmienneGlobalne.getInstance().nieGrajJestemW105) return; //na czas developmentu....
 
             try {
                 if (mp != null) {
@@ -399,7 +409,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 //Toast.makeText(getApplicationContext(), "Nie można odegrać pliku z dźwiękiem.", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-        }
+        } //koniec Metody()
 
         private void setCurrentImage() {
     /* ************************************ */
@@ -457,6 +467,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
          * Dodatkowo mieszam napisy na klawiszach (lepszy efekt)
          */
         public void onClickbAgain(View v) {
+
             tvWyraz.setVisibility(View.INVISIBLE);
             if (ZmienneGlobalne.getInstance().TRYB_TRENING) {
                 ustawWygladWyrazu(tvWyraz, true);
@@ -477,8 +488,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 tButtons[i].setTypeface(null, Typeface.BOLD);
             }
             mRozdzielacz.wymieszajNapisy();
+
             //Toast.makeText(MainActivity.this, Integer.toString(mRozdzielacz.getAktWybrKl()), Toast.LENGTH_SHORT).show();
         } //koniec Metody()
+
 
         private void ustawWygladWyrazu(TextView tvWyraz, boolean Trening) {
             //Ustawia parametry 'estetyczne' wyrazu pod obrazkiem
@@ -497,6 +510,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 else tvWyraz.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvWyrazSize / 2);
             }
         }  //koniec Metody()
+
 
         @Override
         /**

@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -54,7 +55,18 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        ustawKontrolki(); //kontrolki<-ZmienneGlobalne
+        ustawKontrolki(); //kontrolki <-- ZmienneGlobalne
+
+        //Jesli wysylam do Testerow, to ukrywam info o www:
+        if (ZmienneGlobalne.getInstance().DLA_KRZYSKA) {
+            findViewById(R.id.bInfo).setOnClickListener(new OnClickListener() {
+                public void onClick(View view) {
+                    Toast.makeText(SplashKlasa.this, "Jeszcze nie zaimplementowane", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+
     }  //koniec Metody()
 
 

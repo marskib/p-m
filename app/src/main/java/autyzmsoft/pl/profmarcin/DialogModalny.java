@@ -112,5 +112,4 @@ public class DialogModalny extends Activity {
         }
     } //koniec Metody
 
-
 }

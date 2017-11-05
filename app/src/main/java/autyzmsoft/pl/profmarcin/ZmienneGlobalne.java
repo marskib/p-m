@@ -71,7 +71,7 @@ public class ZmienneGlobalne extends Application {
         ZMIENIONO_ZRODLO = true;             //inicjacyjnie na true, zeby po uruchomieniu apki wykonala sie onResume() w calosci
         WYBRANY_KATALOG = "*^5%dummy";       //"nic jeszcze nie wybrano" - lepiej to niz null, bo z null'em problemy...
 
-        DLA_KRZYSKA = false;
+        DLA_KRZYSKA = true;
     } //konstruktor
 }
 

@@ -13,26 +13,32 @@ Pełna wersja jest dostępna na stronie <b>AutyzmSoft.pl</b>
     </string>
 
 
-  <string name="apka_info">Informacje o aplikacji\n\n
-    Program stworzony przez Autora jako pomoc naukowa dla jego dziecka.
 
-Udostępniając program Autor wyraża nadzieję, iż będzie on również przydatny w nauczaniu innych dzieci,
+  <string name="apka_info_01">Informacje o aplikacji\n\n
+    Aplikacja stworzona przez Autora jako pomoc naukowa dla jego dziecka.
+
+Udostępniając aplikację Autor wyraża nadzieję, iż będzie ona również przydatna w nauczaniu innych dzieci,
 jednak nie jest w stanie udzielić co do tego absolutnie żadnej gwarancji.
 \n
-Używając programu godzisz się na powyższy warunek.
+Używając aplikacji godzisz się na powyższy warunek.
 \n\n
-Baza danych programu dołączona do wersji dystrybucyjnej umieszczonej na stronie AutyzmSoft.pl
-zawiera 152 pary obrazek-dźwięk. Wszystkie 152 elementy graficzne i dźwiękowe zostały utworzone
+Baza danych aplikacji dołączona do wersji dystrybucyjnej umieszczonej na stronie AutyzmSoft.pl zawiera </string>
+
+
+<string name="apka_info_02">  par obrazek-dźwięk. Wszystkie </string>
+
+<string name="apka_info_03">  elementy graficzne i dźwiękowe zostały utworzone
 przez Autora we własnym zakresie lub pochodzi z serwisu Pixabay.com, skąd zostały pobrane bez naruszania praw autorskich.
 
 Użytkownik rozbudowując bazę danych powinien przestrzegać praw autorskich do zdjęć i nagrań
-dźwiękowych umieszczanych przez siebie w bazie programu.
-Powyższe dotyczy również rozpowszechniania bazy danych programu utworzonej bądź pozyskanej
+dźwiękowych umieszczanych przez siebie w bazie aplikacji.
+Powyższe dotyczy również rozpowszechniania bazy danych utworzonej bądź pozyskanej
 przez Użytkownika.
 \n
 Autor nie ponosi odpowiedzialności za naruszenie przez Użytkownika praw osób trzecich.
 \n
 </string>
+
 
   <string name="instrukcja">
         \n

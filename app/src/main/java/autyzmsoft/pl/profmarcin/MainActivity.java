@@ -120,7 +120,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //Uchwyty do kontrolek:
         bDalej  = (Button) findViewById(R.id.bDalej);
         tvWyraz = (TextView) findViewById(R.id.tvWyraz);
-        bAgain  = (Button) findViewById(R.id.bAgain);
+        bAgain  = (Button)  findViewById(R.id.bAgain);
         mLayout = (LinearLayout) findViewById(R.id.layoutButtons);
 
         imageView = (ImageView) findViewById(R.id.imV);
@@ -144,7 +144,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //Jezeli starujemy, to nie grac slowa, bo glupio.. :
         if (savedInstanceState == null) {
             //licznikWykonan = 0;     //startujemy licznik wykonan dla onResume
-            nieGraj = true;           //dajemy znac, zeby nie gral slowa, bo jestesmy po obrocie ekranu(i glupio...)
+            nieGraj = true;           //dajemy znac, zeby nie gral slowa, bo startujemy (i glupio...)
         }
     } //koniec metody onCreate()
 

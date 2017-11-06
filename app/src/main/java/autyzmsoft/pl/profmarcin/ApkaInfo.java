@@ -29,20 +29,16 @@ public class ApkaInfo extends Activity {
     bOkInfo = (Button) findViewById(R.id.bOkInfo);
     bStart = (Button) findViewById(R.id.bStart);
 
-    //Ustanowienie listenera:
+    //Ustanowienie listenera uzywanego na klawiszach bInfo i bStart:
     View.OnClickListener sluchacz = new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
         Intent returnIntent = new Intent();
-
         if (v == bStart)
           returnIntent.putExtra("MESSAGE", "KL_START");
         else
           returnIntent.putExtra("MESSAGE", "KL_OK");
-
         setResult(Activity.RESULT_OK, returnIntent);
-
         finish();
         return;
       }
@@ -53,7 +49,22 @@ public class ApkaInfo extends Activity {
     bOkInfo.setOnClickListener(sluchacz);
     //
     dajInfoWersja();
+    ustawGledzenie();
   } //onCreate
+
+  private void ustawGledzenie() {
+    //Ustawia drobny druczek na ApkaInfo; robie skladając kod, zeby zautomatyzowac
+    //pobieranie liczby obrazków z assets apkikacji (zeby nie na sztywano).
+
+    String strLiczba = String.valueOf(MainActivity.listaObrazkowAssets.length)+" "; //w Informacjach odnosimy sie tylko do obrazkow w zasobach
+    String rob1 = getResources().getString(R.string.apka_info_01);
+    String rob2 = getResources().getString(R.string.apka_info_02);
+    String rob3 = getResources().getString(R.string.apka_info_03);
+    String drobnyDruczek = rob1+ strLiczba +rob2+" "+strLiczba+rob3;
+    TextView tvGledzenie = findViewById(R.id.tvGledzenie);
+    tvGledzenie.setText(drobnyDruczek);
+  }
+
 
   private void dajInfoWersja(){
     /*Na ekranie ApkaInfo.xml wypisuje jeden wiersz informacji o wersji aplikacji*/

@@ -41,8 +41,8 @@
             android:id="@+id/tvGledzenie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/apka_info"
             android:textSize="@dimen/tvGledzenie_size"/>
+
 
 
         <autyzmsoft.pl.profmarcin.ResizeTextView

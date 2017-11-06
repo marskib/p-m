@@ -43,7 +43,7 @@ Autor nie ponosi odpowiedzialności za naruszenie przez Użytkownika praw osób 
   <string name="instrukcja">
         \n
         Na zewnętrznej karcie SD tworzymy katog. W tym katalogu umieszczamy samodzielnie przygotowane zdjęcia i nagrania dźwiekowe.\n
-        Zdjęciami mogą być pliki JPG, PNG, BMP. Nagraniami dźwiękowymi mogą być pliki MP3, OGG, WAV, M4A, AMR. Nagrania dźwiękowe nie są obowiązkowe. Uwaga - aplikacja nie obsługuje plików dźwiękowych typu WMA.
+        Zdjęciami mogą być pliki JPG, PNG, BMP, WEBP. Nagraniami dźwiękowymi mogą być pliki MP3, OGG, WAV, M4A, AMR. Nagrania dźwiękowe nie są obowiązkowe. Uwaga - aplikacja nie obsługuje plików dźwiękowych typu WMA.
         \n
         \nZdjęcie i nagranie dźwiękowe powinny mieć tę samą nazwę i różnić się jedynie rozszerzeniem.
         \n

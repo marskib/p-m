@@ -607,6 +607,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     if ((singleFile.getName().toUpperCase().endsWith(".JPG"))
                         || (singleFile.getName().toUpperCase().endsWith(".PNG"))
                         || (singleFile.getName().toUpperCase().endsWith(".BMP"))
+                        || (singleFile.getName().toUpperCase().endsWith(".WEBP"))
                         || (singleFile.getName().toUpperCase().endsWith(".JPEG"))) {
                         al.add(singleFile);
                     }

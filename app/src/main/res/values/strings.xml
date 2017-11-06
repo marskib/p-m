@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="title_activity_file_chooser">Wybór Katalogu</string>
     <string name="ostrzegaj_demo"><b>Informacja.</b>\n
         Używasz aplikacji w wersji Demo.
@@ -14,7 +14,7 @@ Pełna wersja jest dostępna na stronie <b>AutyzmSoft.pl</b>
 
 
 
-  <string name="apka_info_01">Informacje o aplikacji\n\n
+  <string name="apka_info_01" tools:ignore="Typos">Informacje o aplikacji\n\n
     Aplikacja stworzona przez Autora jako pomoc naukowa dla jego dziecka.
 
 Udostępniając aplikację Autor wyraża nadzieję, iż będzie ona również przydatna w nauczaniu innych dzieci,
@@ -27,7 +27,7 @@ Baza danych aplikacji dołączona do wersji dystrybucyjnej umieszczonej na stron
 
 <string name="apka_info_02">  par obrazek-dźwięk. Wszystkie </string>
 
-<string name="apka_info_03">  elementy graficzne i dźwiękowe zostały utworzone
+<string name="apka_info_03" tools:ignore="Typos">  elementy graficzne i dźwiękowe zostały utworzone
 przez Autora we własnym zakresie lub pochodzi z serwisu Pixabay.com, skąd zostały pobrane bez naruszania praw autorskich.
 
 Użytkownik rozbudowując bazę danych powinien przestrzegać praw autorskich do zdjęć i nagrań
@@ -56,9 +56,10 @@ Autor nie ponosi odpowiedzialności za naruszenie przez Użytkownika praw osób 
         \nPlikowi z dźwiękiem \"mama\" nadajemy nazwę <i><b>mama.m4a</b></i>
         \nJeżeli urządzenie utworzy plik dźwiękowy innego typu - np. MP3, to plikowi nadajemy nazwę <i><b>mama.mp3</b></i>
         \nPlik <i><b>mama.m4a</b></i> umieszczamy w tym samym katalogu, w którym umieściliśmy zdjęcie.
-        \nW aplikacji MPrzegladarka wybieramy opcję:
-        \n<i><b>obrazki z mojego katalogu</b></i> i wskazujemy katalog, w którym umieściliśmy zdjęcie i nagranie - w naszym przypadku będzie to katalog <i><b>Rodzina</b></i>
-        \nAplikacja wyświetli zdjęcie, odegra dźwięk, a pod zdjęciem wyświetli nazwę obrazka (czyli wyraz <i>mama</i>).
+    \nW ustawieniach aplikacji ProfMarcin, w grupie <i>Źródło obrazków i nagrań</i>,  wybieramy opcję: <i><b>mój katalog</b></i> i wskazujemy katalog, w którym umieściliśmy zdjęcie i nagranie - w naszym przypadku będzie to katalog <i><b>Rodzina</b></i>
+        \nAplikacja wyświetli zdjęcie, odegra dźwięk, a na jednym z klawiszy umieści nazwę obrazka (czyli wyraz <i>mama</i>).
+        \n
+        W ten sam sposów wrzucamy do katalogu zdjęcia pozostałych członków rodziny.
         \n
         \nJeżeli chcemy demonstrować dziecku więcej niż jedno zdjęcie tej samej osoby lub rzeczy (tzw. generalizacja), nazwa każdego kolejnego zdjęcia tej samej osoby/rzeczy powinna kończyć się cyfrą.
         \nPrzykład: <i><b>mama.jpg , mama1.jpg , mama2.jpg , …</b></i>
@@ -67,11 +68,11 @@ Autor nie ponosi odpowiedzialności za naruszenie przez Użytkownika praw osób 
         \nAplikacja w pełnej wersji pozwala umieścić we włanym katalogu dowolną liczbę zdjęć i nagrań.
         \nW wersji darmowej liczba zdjęć i nagrań jest ograniczona do 5.
         \nW obydwu wersjach można tworzyć i wykorzystywać dowolną liczbę katalogów.
-        \nKatalogi mogą odpowiadać różnym kategoriom przedmiotów i zjawisk z otoczenia dziecka - zwierzęta (z podziałem na podkatalogi: domowe, wiejskie, leśne,
-        zoo), zabawki, pojazdy, owoce, warzywa,  meble, ubrania, instrumenty muzyczne, jedzenie, napoje,
-        przybory szkolne, przedmioty w kuchni, przedmioty w łazience, przedmioty w pokoju, itd.
-        \n
         \nCzynność tworzenia katalogu na urządzeniu i czynność umieszczania w nim obrazków i nagrań najwygodniej jest przeprowadzić na komputerze stacjonarnym, do którego podłączamy telefon za pomocą kabla usb, ale wykonanie tego za pomocą odpowiedniej aplikacji na telefonie (tzw. menedżer plików) jest również możliwe.
+        \n
+        Aplikacja akceptuje zasoby stworzone dla wersji ProfMarcin na komputer stacjonarny - wystarczy przekopiować katalog z zasobami z komputera na telefon/tablet.
+        \n
+        Aplikacja akceptuje również zasoby stworzone na potrzeby aplikacji MPrzegladarka (zarówno wersji Windowsowej jak Androidowej).
         \n
     </string>
 

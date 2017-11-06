@@ -40,7 +40,6 @@ public class ApkaInfo extends Activity {
           returnIntent.putExtra("MESSAGE", "KL_OK");
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
-        return;
       }
     };
 
@@ -54,7 +53,7 @@ public class ApkaInfo extends Activity {
 
   private void ustawGledzenie() {
     //Ustawia drobny druczek na ApkaInfo; robie skladając kod, zeby zautomatyzowac
-    //pobieranie liczby obrazków z assets apkikacji (zeby nie na sztywano).
+    //pobieranie liczby obrazków z Assets apkikacji (zeby nie na sztywano).
 
     String strLiczba = String.valueOf(MainActivity.listaObrazkowAssets.length)+" "; //w Informacjach odnosimy sie tylko do obrazkow w zasobach
     String rob1 = getResources().getString(R.string.apka_info_01);
@@ -68,14 +67,13 @@ public class ApkaInfo extends Activity {
 
   private void dajInfoWersja(){
     /*Na ekranie ApkaInfo.xml wypisuje jeden wiersz informacji o wersji aplikacji*/
-    TextView tvWersja = (TextView) findViewById(R.id.tvWersja);
+    TextView tvWersja = findViewById(R.id.tvWersja);
     String str = "  ProfMarcin 1.1 wersja ";
     if (ZmienneGlobalne.getInstance().PELNA_WERSJA)
       str = str + "Pełna";
     else
       str = str + "Demo";
     tvWersja.setText(str);
-    return;
   }
 
 

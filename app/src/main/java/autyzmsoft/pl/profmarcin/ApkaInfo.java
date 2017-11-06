@@ -49,7 +49,10 @@ public class ApkaInfo extends Activity {
     //
     dajInfoWersja();
     ustawGledzenie();
+
   } //onCreate
+
+
 
   private void ustawGledzenie() {
     //Ustawia drobny druczek na ApkaInfo; robie skladając kod, zeby zautomatyzowac

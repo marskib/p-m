@@ -441,21 +441,22 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             //WYSWIETLENIE OBRAZKA :
             String nazwaObrazka = mRozdzielacz.getAktWybrZasob();  //zawiera rozrzerzenie (.jpg , .bmp , ...)
             try {
-                if (!ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) { //pobranie z Assets
-                    InputStream stream = getAssets().open(katalog + "/" + nazwaObrazka);
-                    Drawable drawable = Drawable.createFromStream(stream, null);
-                    imageView.setImageDrawable(drawable);
-                } else {  //pobranie obrazka z directory
+                if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) { //pobranie z Directory
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 2;
                     String robAbsolutePath = dirObrazkiNaSD + "/" + nazwaObrazka;
                     Bitmap bm = BitmapFactory.decodeFile(robAbsolutePath, options);
                     imageView.setImageBitmap(bm);
+                } else {  //pobranie obrazka z Assets
+                    InputStream stream = getAssets().open(katalog + "/" + nazwaObrazka);
+                    Drawable drawable = Drawable.createFromStream(stream, null);
+                    imageView.setImageDrawable(drawable);
                 }
             } catch (Exception e) {
                 Log.e("4321", e.getMessage());
                 Toast.makeText(this, "Problem z wyswietleniem obrazka...", Toast.LENGTH_SHORT).show();
             }
+
             //ODEGRANIE DŹWIĘKU
             odegrajWyraz(600);
         } // koniec Metody()

@@ -75,7 +75,7 @@ public class ApkaInfo extends Activity {
     if (ZmienneGlobalne.getInstance().PELNA_WERSJA)
       str = str + "Pełna";
     else
-      str = str + "Demo";
+      str = str + "demonstracyjna";
     tvWersja.setText(str);
   }
 

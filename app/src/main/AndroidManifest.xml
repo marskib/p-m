@@ -52,7 +52,7 @@
 
         <activity
             android:name=".WersjaDemoOstrzez"
-            android:label="Ostrzeżenie - używasz wersji demo">
+            android:label="Ostrzeżenie - używasz wersji demonstracyjnej">
         </activity>
 
         <activity

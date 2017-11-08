@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp">
+    android:orientation="vertical"
 
+    android:layout_width="300dp"
+
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:background="@drawable/border_skib_maroon"
+    android:padding="15dp">
 
     <Button
         android:id="@+id/bInternal"
@@ -11,8 +15,6 @@
         android:layout_height="wrap_content"
         android:text="pamięć urządzenia"
         android:onClick="bInternalClick"
-        android:layout_marginLeft="@dimen/tvPoziom_size"
-        android:layout_marginRight="@dimen/tvPoziom_size"
         android:textSize="@dimen/btn_zrodlo_text_rozmiar"
         android:paddingBottom="15dp"/>
 
@@ -24,9 +26,6 @@
         android:text="zewnętrzna karta SD"
         android:onClick="bExternalClick"
         android:layout_marginTop="@dimen/text_margin"
-        android:layout_marginLeft="@dimen/tvPoziom_size"
-        android:layout_marginRight="@dimen/tvPoziom_size"
-        android:layout_marginBottom="@dimen/tvPoziom_size"
         android:textSize="@dimen/btn_zrodlo_text_rozmiar"
         android:paddingBottom="15dp"/>
 </LinearLayout>

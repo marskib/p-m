@@ -282,7 +282,7 @@ public class SplashKlasa extends Activity implements View.OnClickListener{
     /* ************************************************************************************ */
     /* Wyswietlany, gdy user wybierze katalog z wiecej niz 5 obrazkami, a wersja jest Demo. */
     /* ************************************************************************************ */
-        wypiszOstrzezenie("Uwaga - używasz wersji Demo.\nWybrano katalog zawierający więcej niż 5 obrazków.\nZostanie przywrócony wybór\nz zasobów aplikacji.");
+        wypiszOstrzezenie("Uwaga - używasz wersji Demonstracyjnej.\nWybrano katalog zawierający więcej niż 5 obrazków.\nZostanie przywrócony wybór\nz zasobów aplikacji.");
     }
 
 

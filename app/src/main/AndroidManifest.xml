@@ -39,12 +39,14 @@
 
         <activity
             android:name=".FileChooserActivity"
-            android:label="@string/title_activity_file_chooser">
+            android:label="@string/title_activity_file_chooser"
+          android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".InternalExternalKlasa"
-            android:label="wybierz katalog">
+            android:label="wybierz katalog"
+          android:screenOrientation="landscape">
 
         </activity>
 
@@ -52,7 +54,8 @@
 
         <activity
             android:name=".WersjaDemoOstrzez"
-            android:label="Ostrzeżenie - używasz wersji demonstracyjnej">
+            android:label="Ostrzeżenie - używasz wersji demonstracyjnej"
+            android:screenOrientation="landscape">
         </activity>
 
         <activity

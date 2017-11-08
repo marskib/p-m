@@ -21,7 +21,8 @@ import java.util.List;
  * Created by developer on 2017-03-06.
  */
 
-public class InternalExternalKlasa extends Activity {
+public class
+InternalExternalKlasa extends Activity {
 
     private static final String LOG_TAG = "SKIB_LOG_KATALOGI";
     public static String rootToExtSD = null;

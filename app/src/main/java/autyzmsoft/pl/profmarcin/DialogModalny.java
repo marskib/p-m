@@ -84,15 +84,17 @@ public class DialogModalny extends Activity {
 
         //Jesli zrodlem miałby byc katalog, to potrzebne dotatkowe sprawdzenie,bo gdyby pomiedzy uruchomieniami
         // zlikwidowano wybrany katalog to mamy problem, i wtedy przelaczamy sie na zrodlo z zasobow aplikacji:
+        //Sprawdzam też, czy w wersji Demo user nie dorzucił >5 obrazków do ostatniego katalogu.
         if (ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG) {
             String katalog = sharedPreferences.getString("WYBRANY_KATALOG", "*^5%dummy");
             File file = new File(katalog);
             if (!file.exists()) {
                 ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
             }
-            //gdyby nie zlikwidowano katalogu, ale tylko 'wycieto' obrazki - przelaczenie na Zasoby applikacji:
+            //gdyby nie zlikwidowano katalogu, ale tylko 'wycieto' obrazki (lub dorzucono > 5) - przelaczenie na Zasoby applikacji:
             else {
-                if (SplashKlasa.policzObrazki(katalog) == 0) {
+                int lObr = SplashKlasa.policzObrazki(katalog);
+                if ((lObr == 0) || (!ZmienneGlobalne.getInstance().PELNA_WERSJA && lObr > 5)) {
                     ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
                 }
                 else {

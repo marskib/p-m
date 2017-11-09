@@ -93,7 +93,7 @@ public class DialogModalny extends Activity {
             }
             //gdyby nie zlikwidowano katalogu, ale tylko 'wycieto' obrazki (lub dorzucono > 5) - przelaczenie na Zasoby applikacji:
             else {
-                int lObr = SplashKlasa.policzObrazki(katalog);
+                int lObr = SplashKlasa.policzObrazki(katalog);//liczba obrazkow
                 if ((lObr == 0) || (!ZmienneGlobalne.getInstance().PELNA_WERSJA && lObr > 5)) {
                     ZmienneGlobalne.getInstance().ZRODLEM_JEST_KATALOG = false;
                 }

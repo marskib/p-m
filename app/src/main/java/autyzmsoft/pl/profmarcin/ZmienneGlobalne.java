@@ -49,7 +49,7 @@ public class ZmienneGlobalne extends Application {
         nieGrajJestemW105 = false; //wyrzucić po skonczonym developmencie
 
 
-        PELNA_WERSJA = false;
+        PELNA_WERSJA = true;
         POZIOM       = 4;               //startowy poziom trudnosci arbitralnie na 4
         WSZYSTKIE_ROZNE  = true;
         ROZNICUJ_OBRAZKI = true;

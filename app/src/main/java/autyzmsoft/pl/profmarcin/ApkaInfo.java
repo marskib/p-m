@@ -63,6 +63,7 @@ public class ApkaInfo extends Activity {
     String rob2 = getResources().getString(R.string.apka_info_02);
     String rob3 = getResources().getString(R.string.apka_info_03);
     String drobnyDruczek = rob1+ strLiczba +rob2+" "+strLiczba+rob3;
+
     TextView tvGledzenie = findViewById(R.id.tvGledzenie);
     tvGledzenie.setText(drobnyDruczek);
   }

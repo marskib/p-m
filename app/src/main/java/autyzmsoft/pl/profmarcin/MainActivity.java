@@ -316,7 +316,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         else { //zle, wiec 'brrr' na klawiszu + ewentualny koment:
             if (ZmienneGlobalne.getInstance().CISZA) return;
-            odegrajZAssets("nagrania/komentarze/zle.ogg", 0); //brrr...
+            odegrajZAssets("nagrania/komentarze/zle.mp3", 0); //brrr...
             if (ZmienneGlobalne.getInstance().BEZ_KOMENT) return;
             odegrajZAssets("nagrania/komentarze/negatywy/male/nie-e2.m4a", 320);  //"y-y" męski glos dezaprobaty
         }
@@ -396,7 +396,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     mp = new MediaPlayer();
                 }
                 //final String sciezka_do_pliku = sciezka_do_pliku_parametr; //udziwniam, bo klasa wewn. i kompilator sie czepia....
-                AssetFileDescriptor descriptor = getAssets().openFd("nagrania/komentarze/ding.ogg");
+                AssetFileDescriptor descriptor = getAssets().openFd("nagrania/komentarze/ding.mp3");
                 mp.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(),
                     descriptor.getLength());
                 mp.prepare();

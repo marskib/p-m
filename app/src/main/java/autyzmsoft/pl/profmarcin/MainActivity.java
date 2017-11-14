@@ -757,6 +757,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             public void run() {
                 bDalej.setVisibility(View.VISIBLE);
                 bAgain.setVisibility(View.VISIBLE);
+                //gdyby obrazki byly wylaczone, to pokazuje na koniec, bo przeciez dziecko odgadlo - lepszy(?) efekt:
+                if (ZmienneGlobalne.getInstance().BEZ_OBRAZKOW) {
+                  imageView.setVisibility(View.VISIBLE);
+                }
             }
         }, opozniacz);
     } //koniec Metody()

@@ -49,8 +49,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     public Rozdzielacz mRozdzielacz;
         //obiekt sterujacy przydzielaniem zasobow na klawisze
 
-    public static final String katalog = "obrazki";
-        //w tym katalogu w Assets trzymane beda obrazki
+    public static String katalog = null;  //Katalogu w Assets, w ktorym trzymane beda obrazki
 
     public static String listaObrazkowAssets[] = null;
         //lista obrazkow z Assets/obrazki - dla werski demo )i nie tylko...)
@@ -116,6 +115,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         //
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //ustalam polozenie obrazkow - przy pelnej wersji - duuzo więcej... ;):
+        katalog = "obrazki_demo_ver";
+        if (ZmienneGlobalne.getInstance().PELNA_WERSJA) {
+          katalog = "obrazki_pelna_ver";
+        }
 
         //Uchwyty do kontrolek:
         bDalej  = (Button) findViewById(R.id.bDalej);
